@@ -174,6 +174,7 @@
             if (record.status === '已驳回' && decisions.at(-1)?.action === 'reject') state = 'rejected';
             const stateText = { done: '审批通过', pending: '进行中', waiting: '待处理', rejected: '审批拒绝' }[state] || '';
             const names = node.users || (node.user ? [node.user] : []);
+            const comments = decisions.filter(d => d.comment && d.comment !== '-' && d.comment !== '提交表单');
             return `<li class="acd-timeline-node ${esc(state)}"><span class="acd-node-mark">${timelineIcon(state === 'done' ? 'check' : state, 12)}</span>
                 <div class="acd-node-title"><span>${esc(node.name)}${index && stateText ? ' - ' + stateText : ''}</span>${node.time ? `<time>${esc(node.time)}</time>` : ''}</div>
                 ${node.desc ? `<div class="acd-sign-rule">${esc(node.desc)}</div>` : ''}
@@ -181,7 +182,8 @@
                     const decision = decisions.filter(d => d.user === name).at(-1);
                     const result = !index && state === 'done' ? '同意' : decision?.action === 'agree' ? '同意' : decision?.action === 'reject' ? '驳回' : '';
                     return `<span class="acd-person ${result === '同意' ? 'agreed' : result === '驳回' ? 'rejected' : ''}"><span class="acd-person-icon">${timelineIcon('user', 15)}</span>${esc(name)}${index && result ? `（${result}）` : ''}</span>`;
-                }).join('')}</div></li>`;
+                }).join('')}</div>
+                ${comments.length ? `<div class="acd-node-comments">${comments.map(c => `<div class="acd-node-comment"><span class="acd-comment-user">${esc(c.user)}</span>：${esc(c.comment)}</div>`).join('')}</div>` : ''}</li>`;
         }).join('')}</ol>`;
     }
     function progressHTML(root, opened, collapsed, editable = true, prefix = 'acd-progress') {

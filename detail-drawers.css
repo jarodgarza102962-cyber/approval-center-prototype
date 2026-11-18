@@ -9,20 +9,20 @@
 :is(#detail-modal, #related-form-drawer).acd-collapsed .acd-width-handle { display: none; }
 :is(#detail-modal, #related-form-drawer) :is(#form-content-container, .acd-related-form) { width: 100%; min-width: 760px; }
 :is(#detail-modal, #related-form-drawer) .detail-modal-body, :is(#detail-modal, #related-form-drawer) .detail-panel { min-width: 0; min-height: 0; }
-:is(#detail-modal, #related-form-drawer) .detail-form-header { display: flex; align-items: center; gap: 12px; height: 48px; min-height: 48px; padding: 0 12px; margin: 12px 12px 10px; border: 1px solid #dcdfe6; border-radius: 4px; background: #f2f3f8; }
-:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-main-close { display: inline-flex; justify-content: center; align-items: center; flex: 0 0 24px; width: 24px; height: 24px; margin-left: auto; color: #909399; font-size: 22px; line-height: 24px; text-decoration: none; }
-:is(#detail-modal, #related-form-drawer) .detail-form-title-row { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; margin: 0; gap: 6px; }
-:is(#detail-modal, #related-form-drawer) .detail-form-name { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 400; }
+:is(#detail-modal, #related-form-drawer) .detail-form-header { display: flex; align-items: center; gap: 12px; height: 48px; min-height: 48px; padding: 0 16px; margin: 10px 12px 10px; border: 1px solid #e2e6ed; border-radius: 4px; background: #f8fafc; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-main-close { display: inline-flex; justify-content: center; align-items: center; flex: 0 0 24px; width: 24px; height: 24px; margin-left: auto; color: #909399; font-size: 22px; line-height: 24px; text-decoration: none; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .detail-form-title-row { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; margin: 0; gap: 8px; align-items: center; }
+:is(#detail-modal, #related-form-drawer) .detail-form-name { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 15px; font-weight: 600; color: #1f2329; }
 :is(#detail-modal, #related-form-drawer) .detail-form-title-row .status-badge { flex-shrink: 0; }
-:is(#detail-modal, #related-form-drawer) .detail-meta { flex: 0 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+:is(#detail-modal, #related-form-drawer) .detail-meta { flex: 0 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; color: #606266; }
 :is(#detail-modal, #related-form-drawer).acd-collapsed .detail-form-title-row { flex: 1 1 0; }
 :is(#detail-modal, #related-form-drawer).acd-collapsed .detail-meta, :is(#detail-modal, #related-form-drawer).acd-collapsed #detail-status { display: none; }
-:is(#detail-modal, #related-form-drawer) .acd-workspace { display: flex; flex: 1 1 0; min-width: 0; min-height: 0; }
-:is(#detail-modal, #related-form-drawer) .acd-content { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; }
-:is(#detail-modal, #related-form-drawer) .detail-tabs { height: 44px; padding: 0; background: #f5f7fa; border: 1px solid #dcdfe6; }
-:is(#detail-modal, #related-form-drawer) .detail-tab-btn { height: 44px; margin: -1px 0 -1px -1px; padding: 0 22px; border: 1px solid transparent; border-radius: 0; background: transparent; color: #909399; white-space: nowrap; font-weight: 400; }
-:is(#detail-modal, #related-form-drawer) .detail-tab-btn.active { background: #fff; color: #008fd5; border-color: #dcdfe6; border-bottom-color: #fff; }
-:is(#detail-modal, #related-form-drawer) .detail-tab-pane { min-height: 0; min-width: 0; overflow: auto; }
+:is(#detail-modal, #related-form-drawer) .acd-workspace { display: flex; flex: 1 1 0; min-width: 0; min-height: 0; background: #f5f7fa; }
+:is(#detail-modal, #related-form-drawer) .acd-content { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; background: #fff; }
+:is(#detail-modal, #related-form-drawer) .detail-tabs { height: 44px; padding: 0; background: #f8fafc; border-bottom: 1px solid #e2e6ed; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-btn { height: 44px; margin: 0; padding: 0 22px; border: none; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: #606266; white-space: nowrap; font-size: 13px; font-weight: 500; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-btn.active { background: #fff; color: #008fd5; border-bottom-color: #008fd5; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-pane { min-height: 0; min-width: 0; overflow: auto; background: #fff; }
 :is(#detail-modal, #related-form-drawer) .acd-table-scroll { width: 100%; overflow-x: auto; }
 :is(#detail-modal, #related-form-drawer) .acd-table-scroll table { min-width: 760px; }
 :is(#detail-modal, #related-form-drawer) .eval-form-wrap { min-width: 0; }
@@ -32,67 +32,80 @@
 :is(#detail-modal, #related-form-drawer).acd-collapsed .acd-content { display: none; }
 :is(#detail-modal, #related-form-drawer).acd-collapsed .detail-modal-box { width: calc(var(--acd-sidebar-width) + 15px); }
 :is(#detail-modal, #related-form-drawer).acd-collapsed .acd-sidebar { margin-left: 14px; }
-:is(#detail-modal, #related-form-drawer) .acd-sidebar { position: relative; display: flex; flex-direction: column; width: var(--acd-sidebar-width); flex: 0 0 var(--acd-sidebar-width); min-height: 0; min-width: 0; border-left: 1px solid #e1e5ec; background: #fff; }
-:is(#detail-modal, #related-form-drawer) .acd-edge-toggle { position: absolute; left: -14px; top: calc(50% - 22px); z-index: 2; width: 14px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px 0; border: 0; border-radius: 4px 0 0 4px; background: #35bff2; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .acd-sidebar { position: relative; display: flex; flex-direction: column; width: var(--acd-sidebar-width); flex: 0 0 var(--acd-sidebar-width); min-height: 0; min-width: 0; border-left: 1px solid #e2e6ed; background: #f5f7fa; }
+:is(#detail-modal, #related-form-drawer) .acd-edge-toggle { position: absolute; left: -14px; top: calc(50% - 22px); z-index: 2; width: 14px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px 0; border: 0; border-radius: 4px 0 0 4px; background: #35bff2; color: #fff; font: inherit; font-size: 12px; cursor: pointer; box-shadow: -2px 0 6px rgba(0,0,0,0.06); }
 :is(#detail-modal, #related-form-drawer) .acd-edge-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
 :is(#detail-modal, #related-form-drawer) .acd-edge-toggle:hover { background: #008fd5; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-header { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; min-height: 41px; padding: 9px 12px; border-bottom: 1px solid #e1e5ec; font-size: 13px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-header strong { display: inline-flex; align-items: center; gap: 8px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-header strong::before { content: ""; width: 3px; height: 14px; background: #409eff; }
-:is(#detail-modal, #related-form-drawer) .acd-count { margin-left: auto; color: #909399; font-size: 12px; }
-:is(#detail-modal, #related-form-drawer) .acd-count b { color: #529b2e; font-weight: 600; }
-:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 8px; border: 1px solid #008fd5; border-radius: 4px; background: #fff; color: #008fd5; font-size: 12px; font-weight: 400; }
-:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button:hover { background: #ecf5ff; border-color: #008fd5; text-decoration: none; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-list { flex: 1 1 0; min-height: 0; overflow: auto; padding: 12px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item { margin-bottom: 8px; border: 1px solid #e4e7ed; border-radius: 6px; overflow: hidden; background: #fff; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-heading { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; min-height: 44px; padding: 0 14px; background: #fff; border-bottom: 1px solid #e2e6ed; font-size: 13px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header strong { display: inline-flex; align-items: center; gap: 8px; color: #1f2329; font-weight: 600; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header strong::before { content: ""; width: 3px; height: 14px; border-radius: 2px; background: #008fd5; }
+:is(#detail-modal, #related-form-drawer) .acd-count { margin-left: auto; display: inline-flex; align-items: center; padding: 2px 8px; background: #f0f9eb; border: 1px solid #e1f3d8; border-radius: 12px; color: #67c23a; font-size: 12px; }
+:is(#detail-modal, #related-form-drawer) .acd-count b { color: #529b2e; font-weight: 600; margin-left: 2px; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 0 10px; border: 1px solid #008fd5; border-radius: 4px; background: #fff; color: #008fd5; font-size: 12px; font-weight: 400; transition: all 0.15s; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button:hover { background: #f0f7ff; border-color: #008fd5; color: #008fd5; text-decoration: none; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-list { flex: 1 1 0; min-height: 0; overflow-y: auto; padding: 12px; background: #f5f7fa; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item { margin-bottom: 12px; border: 1px solid #e4e7ed; border-radius: 6px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: box-shadow 0.2s, border-color 0.2s; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item:hover { border-color: #d0d7de; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+:is(#detail-modal, #related-form-drawer) .acd-progress-heading { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: #ffffff; }
 :is(#detail-modal, #related-form-drawer) .acd-toggle { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; text-align: left; font: inherit; cursor: pointer; }
-:is(#detail-modal, #related-form-drawer) .acd-form-label { flex: 1 1 0; min-width: 0; color: #303133; font-size: 14px; font-weight: 600; line-height: 22px; overflow-wrap: anywhere; }
-:is(#detail-modal, #related-form-drawer) .acd-fold { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 22px; flex: 0 0 20px; color: #909399; }
+:is(#detail-modal, #related-form-drawer) .acd-form-label { flex: 1 1 0; min-width: 0; color: #1f2329; font-size: 13px; font-weight: 600; line-height: 20px; overflow-wrap: anywhere; }
+:is(#detail-modal, #related-form-drawer) .acd-fold { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; color: #909399; }
 :is(#detail-modal, #related-form-drawer) .acd-fold svg { transition: transform .15s; }
 :is(#detail-modal, #related-form-drawer) .acd-progress-item:not(.collapsed) .acd-fold svg { transform: rotate(180deg); }
-:is(#detail-modal, #related-form-drawer) .acd-progress-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 10px; min-width: 0; }
-:is(#detail-modal, #related-form-drawer) .acd-summary-info { display: flex; align-items: center; flex-wrap: wrap; flex: 1 1 140px; min-width: 0; gap: 6px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-status { display: inline-flex; align-items: center; padding: 0 5px; font-size: 12px; line-height: 20px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-tag { display: inline-flex; align-items: center; padding: 0 5px; border: 1px solid #dcdfe6; border-radius: 2px; background: #fff; color: #606266; font-size: 12px; line-height: 18px; white-space: nowrap; }
-:is(#detail-modal, #related-form-drawer) .acd-item-actions { display: flex; align-items: center; flex-wrap: wrap; flex: 0 0 auto; margin-left: auto; gap: 12px; }
-:is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button,
-:is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button:hover { text-decoration: none; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-body { padding: 12px; background: #fff; border-top: 1px solid #edf0f3; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; min-width: 0; }
+:is(#detail-modal, #related-form-drawer) .acd-summary-info { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-status { display: inline-flex; align-items: center; padding: 1px 7px; font-size: 11px; line-height: 18px; border-radius: 3px; font-weight: 500; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-tag { display: inline-flex; align-items: center; padding: 1px 6px; border: 1px solid #dcdfe6; border-radius: 3px; background: #f7f8fa; color: #606266; font-size: 11px; line-height: 16px; white-space: nowrap; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions .acd-text-button { font-size: 12px; color: #008fd5; padding: 0 2px; background: transparent; line-height: 18px; text-decoration: none; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions .acd-text-button:hover { color: #0077b3; text-decoration: underline; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions .acd-text-button.acd-remove { color: #f56c6c; background: transparent; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions .acd-text-button.acd-remove:hover { color: #d9363e; text-decoration: underline; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-body { padding: 12px 14px 14px; background: #fff; border-top: 1px solid #f0f2f5; }
 :is(#detail-modal, #related-form-drawer) .acd-progress-item.collapsed .acd-progress-body { display: none; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; margin-bottom: 14px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-tools { display: flex; justify-content: flex-end; gap: 12px; padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px dashed #e9ecf0; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-tools .acd-text-button { color: #008fd5; background: transparent; padding: 0 2px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-tools .acd-text-button:hover { color: #0077b3; text-decoration: underline; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button { border: 0; padding: 2px 0; background: transparent; color: #008fd5; font: inherit; font-size: 12px; line-height: 20px; white-space: nowrap; cursor: pointer; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button:hover { text-decoration: underline; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button:disabled { color: #b6bac2; text-decoration: none; cursor: default; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-text-button.acd-remove { color: #f56c6c; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) :is(button, input, textarea, [tabindex]):focus-visible { outline: 2px solid #008fd5; outline-offset: 2px; }
 :is(#detail-modal, #related-form-drawer) .acd-width-handle:focus-visible { outline: 1px solid #606266; outline-offset: -1px; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status { display: inline; padding: 2px 5px; border-radius: 2px; font-size: 11px; font-weight: normal; white-space: nowrap; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.done { color: #529b2e; background: #f0f9eb; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.active { color: #008fd5; background: #ecf5ff; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.rejected { color: #f34b4b; background: #fef0f0; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.unstarted { color: #909399; background: #f4f4f5; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status { display: inline; padding: 2px 6px; border-radius: 2px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.done { color: #529b2e; background: #f0f9eb; border: 1px solid #c2e7b0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.active { color: #008fd5; background: #ecf5ff; border: 1px solid #b3d8ff; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.rejected { color: #f34b4b; background: #fef0f0; border: 1px solid #fbc4c4; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.unstarted { color: #909399; background: #f4f4f5; border: 1px solid #e4e7ed; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-empty { color: #909399; text-align: center; font-size: 13px; padding: 20px 0; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .flow-timeline { padding: 0; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline { list-style: none; margin: 0; padding: 0 0 0 10px; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node { position: relative; min-width: 0; padding: 0 0 24px 24px; border-left: 2px dashed #e1e5ec; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node:last-child { border-left-color: transparent; padding-bottom: 14px; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-mark { position: absolute; left: -8px; top: 3px; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; color: #fff; background: #67c23a; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-mark { background: #ffb900; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-mark { background: #f34b4b; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.waiting .acd-node-mark { background: #b6bac2; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; line-height: 20px; font-size: 12px; overflow-wrap: anywhere; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title > span { color: #67c23a; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-title > span { color: #e6a000; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-title > span { color: #f34b4b; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline { list-style: none; margin: 0; padding: 0 0 0 8px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node { position: relative; min-width: 0; padding: 0 0 20px 20px; border-left: 2px solid #e4e7ed; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.done { border-left-color: #b7eb8f; }
+:is(#detail-modal, #related-form-drawer) .acd-timeline-node.pending { border-left-color: #ffd591; }
+:is(#detail-modal, #related-form-drawer) .acd-timeline-node.rejected { border-left-color: #ffccc7; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node:last-child { border-left-color: transparent; padding-bottom: 4px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-mark { position: absolute; left: -8px; top: 2px; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; color: #fff; background: #67c23a; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-mark { background: #e6a23c; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-mark { background: #f56c6c; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.waiting .acd-node-mark { background: #c0c4cc; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; line-height: 20px; font-weight: 500; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title > span { color: #1f2329; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.done .acd-node-title > span { color: #529b2e; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-title > span { color: #d48806; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-title > span { color: #cf1322; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.waiting .acd-node-title > span { color: #909399; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node time { font-size: 11px; color: #303133; white-space: nowrap; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-sign-rule { color: #909399; font-size: 12px; line-height: 19px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node time { font-size: 11px; color: #8c939d; font-weight: normal; white-space: nowrap; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-sign-rule { color: #909399; font-size: 11px; line-height: 16px; margin-top: 2px; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-people { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person { display: inline-flex; align-items: center; gap: 5px; padding: 0 8px 0 0; background: #f2f3f8; border-radius: 16px; font-size: 11px; line-height: 25px; color: #303133; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person-icon { display: flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; color: #fff; background: #909399; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px 1px 2px; background: #f4f6f9; border: 1px solid #e5e8ed; border-radius: 12px; font-size: 11px; line-height: 18px; color: #4e5969; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person-icon { display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: #fff; background: #909399; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.agreed { background: #f0f9eb; border-color: #c2e7b0; color: #529b2e; }
 :is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.agreed .acd-person-icon { background: #67c23a; }
-:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.rejected .acd-person-icon { background: #f34b4b; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.rejected { background: #fef0f0; border-color: #fbc4c4; color: #f56c6c; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.rejected .acd-person-icon { background: #f56c6c; }
+:is(#detail-modal, #related-form-drawer) .acd-node-comments { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+:is(#detail-modal, #related-form-drawer) .acd-node-comment { padding: 6px 10px; background: #f8fafc; border: 1px solid #ebeef5; border-radius: 3px; font-size: 12px; line-height: 18px; color: #4e5969; }
+:is(#detail-modal, #related-form-drawer) .acd-comment-user { color: #1f2329; font-weight: 500; }
 #approval-record-drawer { display: none; position: fixed; inset: 0; z-index: 2100; justify-content: flex-end; overflow: hidden; background: #0003; }
 #approval-record-drawer .acd-panel { display: flex; flex-direction: column; width: 520px; max-width: 100%; height: 100%; min-width: 0; background: #fff; box-shadow: -6px 0 24px #0002; animation: acd-slide-in .24s ease-out; }
 #approval-record-drawer[data-kind="view"] .acd-panel { width: 720px; }
