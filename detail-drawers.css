@@ -1,86 +1,90 @@
-#detail-modal { --acd-sidebar-width: 380px; }
-#detail-modal .detail-modal-box { width: 92vw; max-width: 1800px; min-width: 0; }
-#detail-modal .detail-modal-body, #detail-modal .detail-panel { min-width: 0; min-height: 0; }
-#detail-modal .detail-form-header { display: flex; align-items: center; gap: 12px; height: 48px; min-height: 48px; padding: 0 12px; margin: 12px 12px 10px; border: 1px solid #dcdfe6; border-radius: 4px; background: #f2f3f8; }
-#detail-modal .acd-text-button.acd-main-close { display: inline-flex; justify-content: center; align-items: center; flex: 0 0 24px; width: 24px; height: 24px; margin-left: auto; color: #909399; font-size: 22px; line-height: 24px; text-decoration: none; }
-#detail-modal .detail-form-title-row { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; margin: 0; gap: 6px; }
-#detail-modal .detail-form-name { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 400; }
-#detail-modal .detail-form-title-row .status-badge { flex-shrink: 0; }
-#detail-modal .detail-meta { flex: 0 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#detail-modal.acd-collapsed .detail-form-title-row { flex: 1 1 0; }
-#detail-modal.acd-collapsed .detail-meta, #detail-modal.acd-collapsed #detail-status { display: none; }
-#detail-modal .acd-workspace { display: flex; flex: 1 1 0; min-width: 0; min-height: 0; }
-#detail-modal .acd-content { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; }
-#detail-modal .detail-tabs { height: 44px; padding: 0; background: #f5f7fa; border: 1px solid #dcdfe6; }
-#detail-modal .detail-tab-btn { height: 44px; margin: -1px 0 -1px -1px; padding: 0 22px; border: 1px solid transparent; border-radius: 0; background: transparent; color: #909399; white-space: nowrap; font-weight: 400; }
-#detail-modal .detail-tab-btn.active { background: #fff; color: #008fd5; border-color: #dcdfe6; border-bottom-color: #fff; }
-#detail-modal .detail-tab-pane { min-height: 0; min-width: 0; overflow: auto; }
-#detail-modal .acd-table-scroll { width: 100%; overflow-x: auto; }
-#detail-modal .acd-table-scroll table { min-width: 760px; }
-#detail-modal .eval-form-wrap { min-width: 0; }
-#detail-modal .eval-summary-box > div { flex-wrap: wrap; }
-#detail-modal .eval-summary-meta { flex-wrap: wrap; gap: 10px; }
-#detail-modal #detail-footer { flex-wrap: wrap; gap: 8px; }
-#detail-modal.acd-collapsed .acd-content { display: none; }
-#detail-modal.acd-collapsed .detail-modal-box { width: calc(var(--acd-sidebar-width) + 15px); }
-#detail-modal.acd-collapsed #approval-progress-panel { margin-left: 14px; }
-#detail-modal #approval-progress-panel { position: relative; display: flex; flex-direction: column; width: var(--acd-sidebar-width); flex: 0 0 var(--acd-sidebar-width); min-height: 0; min-width: 0; border-left: 1px solid #e1e5ec; background: #fff; }
-#detail-modal .acd-edge-toggle { position: absolute; left: -14px; top: calc(50% - 22px); z-index: 2; width: 14px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px 0; border: 0; border-radius: 4px 0 0 4px; background: #35bff2; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
-#detail-modal .acd-edge-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
-#detail-modal .acd-edge-toggle:hover { background: #008fd5; }
-#detail-modal .acd-progress-header { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; min-height: 41px; padding: 9px 12px; border-bottom: 1px solid #e1e5ec; font-size: 13px; }
-#detail-modal .acd-progress-header strong { display: inline-flex; align-items: center; gap: 8px; }
-#detail-modal .acd-progress-header strong::before { content: ""; width: 3px; height: 14px; background: #409eff; }
-#detail-modal .acd-count { margin-left: auto; color: #909399; font-size: 12px; }
-#detail-modal .acd-count b { color: #529b2e; font-weight: 600; }
-#detail-modal .acd-text-button.acd-link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 8px; border: 1px solid #008fd5; border-radius: 4px; background: #fff; color: #008fd5; font-size: 12px; font-weight: 400; }
-#detail-modal .acd-text-button.acd-link-button:hover { background: #ecf5ff; border-color: #008fd5; text-decoration: none; }
-#detail-modal .acd-progress-list { flex: 1 1 0; min-height: 0; overflow: auto; padding: 12px; }
-#detail-modal .acd-progress-item { margin-bottom: 10px; border: 1px solid #e1e9ef; border-radius: 6px; overflow: hidden; background: #fff; }
-#detail-modal .acd-progress-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 10px; padding: 12px; }
-#detail-modal .acd-toggle { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; text-align: left; font: inherit; cursor: pointer; }
-#detail-modal .acd-form-label { min-width: 0; font-size: 13px; font-weight: 600; line-height: 22px; overflow-wrap: anywhere; }
-#detail-modal .acd-fold { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 24px; flex: 0 0 20px; color: #909399; }
-#detail-modal .acd-fold svg { transition: transform .15s; }
-#detail-modal .acd-progress-item:not(.collapsed) .acd-fold svg { transform: rotate(180deg); }
-#detail-modal .acd-relation { color: #909399; font-size: 12px; }
-#detail-modal .acd-item-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-#detail-modal :is(.acd-item-actions, .acd-progress-tools) .acd-text-button,
-#detail-modal :is(.acd-item-actions, .acd-progress-tools) .acd-text-button:hover { text-decoration: none; }
-#detail-modal .acd-progress-body { padding: 12px; background: #fff; border-top: 1px solid #edf0f3; }
-#detail-modal .acd-progress-item.collapsed .acd-progress-body { display: none; }
-#detail-modal .acd-progress-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; margin-bottom: 14px; }
-:is(#detail-modal, #approval-record-drawer) .acd-text-button { border: 0; padding: 2px 0; background: transparent; color: #008fd5; font: inherit; font-size: 12px; line-height: 20px; white-space: nowrap; cursor: pointer; }
-:is(#detail-modal, #approval-record-drawer) .acd-text-button:hover { text-decoration: underline; }
-:is(#detail-modal, #approval-record-drawer) .acd-text-button:disabled { color: #b6bac2; text-decoration: none; cursor: default; }
-#detail-modal .acd-text-button.acd-remove { color: #f56c6c; }
-:is(#detail-modal, #approval-record-drawer) :is(button, input, textarea, [tabindex]):focus-visible { outline: 2px solid #008fd5; outline-offset: 2px; }
-:is(#detail-modal, #approval-record-drawer) .acd-status { display: inline; padding: 2px 5px; border-radius: 2px; font-size: 11px; font-weight: normal; white-space: nowrap; }
-:is(#detail-modal, #approval-record-drawer) .acd-status.done { color: #529b2e; background: #f0f9eb; }
-:is(#detail-modal, #approval-record-drawer) .acd-status.active { color: #008fd5; background: #ecf5ff; }
-:is(#detail-modal, #approval-record-drawer) .acd-status.rejected { color: #f34b4b; background: #fef0f0; }
-:is(#detail-modal, #approval-record-drawer) .acd-status.unstarted { color: #909399; background: #f4f4f5; }
-:is(#detail-modal, #approval-record-drawer) .acd-empty { color: #909399; text-align: center; font-size: 13px; padding: 20px 0; }
-:is(#detail-modal, #approval-record-drawer) .flow-timeline { padding: 0; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline { list-style: none; margin: 0; padding: 0 0 0 10px; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node { position: relative; min-width: 0; padding: 0 0 24px 24px; border-left: 2px dashed #e1e5ec; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node:last-child { border-left-color: transparent; padding-bottom: 14px; }
-:is(#detail-modal, #approval-record-drawer) .acd-node-mark { position: absolute; left: -8px; top: 3px; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; color: #fff; background: #67c23a; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.pending .acd-node-mark { background: #ffb900; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.rejected .acd-node-mark { background: #f34b4b; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.waiting .acd-node-mark { background: #b6bac2; }
-:is(#detail-modal, #approval-record-drawer) .acd-node-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; line-height: 20px; font-size: 12px; overflow-wrap: anywhere; }
-:is(#detail-modal, #approval-record-drawer) .acd-node-title > span { color: #67c23a; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.pending .acd-node-title > span { color: #e6a000; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.rejected .acd-node-title > span { color: #f34b4b; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node.waiting .acd-node-title > span { color: #909399; }
-:is(#detail-modal, #approval-record-drawer) .acd-timeline-node time { font-size: 11px; color: #303133; white-space: nowrap; }
-:is(#detail-modal, #approval-record-drawer) .acd-sign-rule { color: #909399; font-size: 12px; line-height: 19px; }
-:is(#detail-modal, #approval-record-drawer) .acd-people { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-:is(#detail-modal, #approval-record-drawer) .acd-person { display: inline-flex; align-items: center; gap: 5px; padding: 0 8px 0 0; background: #f2f3f8; border-radius: 16px; font-size: 11px; line-height: 25px; color: #303133; }
-:is(#detail-modal, #approval-record-drawer) .acd-person-icon { display: flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; color: #fff; background: #909399; }
-:is(#detail-modal, #approval-record-drawer) .acd-person.agreed .acd-person-icon { background: #67c23a; }
-:is(#detail-modal, #approval-record-drawer) .acd-person.rejected .acd-person-icon { background: #f34b4b; }
+:is(#detail-modal, #related-form-drawer) { --acd-sidebar-width: 380px; }
+:is(#detail-modal, #related-form-drawer) .detail-modal-box { width: 92vw; max-width: 1800px; min-width: 0; }
+:is(#detail-modal, #related-form-drawer) .detail-modal-body, :is(#detail-modal, #related-form-drawer) .detail-panel { min-width: 0; min-height: 0; }
+:is(#detail-modal, #related-form-drawer) .detail-form-header { display: flex; align-items: center; gap: 12px; height: 48px; min-height: 48px; padding: 0 12px; margin: 12px 12px 10px; border: 1px solid #dcdfe6; border-radius: 4px; background: #f2f3f8; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-main-close { display: inline-flex; justify-content: center; align-items: center; flex: 0 0 24px; width: 24px; height: 24px; margin-left: auto; color: #909399; font-size: 22px; line-height: 24px; text-decoration: none; }
+:is(#detail-modal, #related-form-drawer) .detail-form-title-row { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; margin: 0; gap: 6px; }
+:is(#detail-modal, #related-form-drawer) .detail-form-name { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 400; }
+:is(#detail-modal, #related-form-drawer) .detail-form-title-row .status-badge { flex-shrink: 0; }
+:is(#detail-modal, #related-form-drawer) .detail-meta { flex: 0 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+:is(#detail-modal, #related-form-drawer).acd-collapsed .detail-form-title-row { flex: 1 1 0; }
+:is(#detail-modal, #related-form-drawer).acd-collapsed .detail-meta, :is(#detail-modal, #related-form-drawer).acd-collapsed #detail-status { display: none; }
+:is(#detail-modal, #related-form-drawer) .acd-workspace { display: flex; flex: 1 1 0; min-width: 0; min-height: 0; }
+:is(#detail-modal, #related-form-drawer) .acd-content { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; }
+:is(#detail-modal, #related-form-drawer) .detail-tabs { height: 44px; padding: 0; background: #f5f7fa; border: 1px solid #dcdfe6; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-btn { height: 44px; margin: -1px 0 -1px -1px; padding: 0 22px; border: 1px solid transparent; border-radius: 0; background: transparent; color: #909399; white-space: nowrap; font-weight: 400; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-btn.active { background: #fff; color: #008fd5; border-color: #dcdfe6; border-bottom-color: #fff; }
+:is(#detail-modal, #related-form-drawer) .detail-tab-pane { min-height: 0; min-width: 0; overflow: auto; }
+:is(#detail-modal, #related-form-drawer) .acd-table-scroll { width: 100%; overflow-x: auto; }
+:is(#detail-modal, #related-form-drawer) .acd-table-scroll table { min-width: 760px; }
+:is(#detail-modal, #related-form-drawer) .eval-form-wrap { min-width: 0; }
+:is(#detail-modal, #related-form-drawer) .eval-summary-box > div { flex-wrap: wrap; }
+:is(#detail-modal, #related-form-drawer) .eval-summary-meta { flex-wrap: wrap; gap: 10px; }
+:is(#detail-modal, #related-form-drawer) #detail-footer { flex-wrap: wrap; gap: 8px; }
+:is(#detail-modal, #related-form-drawer).acd-collapsed .acd-content { display: none; }
+:is(#detail-modal, #related-form-drawer).acd-collapsed .detail-modal-box { width: calc(var(--acd-sidebar-width) + 15px); }
+:is(#detail-modal, #related-form-drawer).acd-collapsed .acd-sidebar { margin-left: 14px; }
+:is(#detail-modal, #related-form-drawer) .acd-sidebar { position: relative; display: flex; flex-direction: column; width: var(--acd-sidebar-width); flex: 0 0 var(--acd-sidebar-width); min-height: 0; min-width: 0; border-left: 1px solid #e1e5ec; background: #fff; }
+:is(#detail-modal, #related-form-drawer) .acd-edge-toggle { position: absolute; left: -14px; top: calc(50% - 22px); z-index: 2; width: 14px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px 0; border: 0; border-radius: 4px 0 0 4px; background: #35bff2; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .acd-edge-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
+:is(#detail-modal, #related-form-drawer) .acd-edge-toggle:hover { background: #008fd5; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; min-height: 41px; padding: 9px 12px; border-bottom: 1px solid #e1e5ec; font-size: 13px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header strong { display: inline-flex; align-items: center; gap: 8px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-header strong::before { content: ""; width: 3px; height: 14px; background: #409eff; }
+:is(#detail-modal, #related-form-drawer) .acd-count { margin-left: auto; color: #909399; font-size: 12px; }
+:is(#detail-modal, #related-form-drawer) .acd-count b { color: #529b2e; font-weight: 600; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 8px; border: 1px solid #008fd5; border-radius: 4px; background: #fff; color: #008fd5; font-size: 12px; font-weight: 400; }
+:is(#detail-modal, #related-form-drawer) .acd-text-button.acd-link-button:hover { background: #ecf5ff; border-color: #008fd5; text-decoration: none; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-list { flex: 1 1 0; min-height: 0; overflow: auto; padding: 12px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item { margin-bottom: 8px; border: 1px solid #e4e7ed; border-radius: 6px; overflow: hidden; background: #fff; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-heading { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+:is(#detail-modal, #related-form-drawer) .acd-toggle { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; text-align: left; font: inherit; cursor: pointer; }
+:is(#detail-modal, #related-form-drawer) .acd-form-label { flex: 1 1 0; min-width: 0; color: #303133; font-size: 14px; font-weight: 600; line-height: 22px; overflow-wrap: anywhere; }
+:is(#detail-modal, #related-form-drawer) .acd-fold { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 22px; flex: 0 0 20px; color: #909399; }
+:is(#detail-modal, #related-form-drawer) .acd-fold svg { transition: transform .15s; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item:not(.collapsed) .acd-fold svg { transform: rotate(180deg); }
+:is(#detail-modal, #related-form-drawer) .acd-progress-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 10px; min-width: 0; }
+:is(#detail-modal, #related-form-drawer) .acd-summary-info { display: flex; align-items: center; flex-wrap: wrap; flex: 1 1 140px; min-width: 0; gap: 6px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-status { display: inline-flex; align-items: center; padding: 0 5px; font-size: 12px; line-height: 20px; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-text { color: #909399; font-size: 12px; line-height: 20px; white-space: nowrap; }
+:is(#detail-modal, #related-form-drawer) .acd-item-actions { display: flex; align-items: center; flex-wrap: wrap; flex: 0 0 auto; margin-left: auto; gap: 12px; }
+:is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button,
+:is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button:hover { text-decoration: none; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-body { padding: 12px; background: #fff; border-top: 1px solid #edf0f3; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item.collapsed .acd-progress-body { display: none; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; margin-bottom: 14px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button { border: 0; padding: 2px 0; background: transparent; color: #008fd5; font: inherit; font-size: 12px; line-height: 20px; white-space: nowrap; cursor: pointer; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button:hover { text-decoration: underline; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-text-button:disabled { color: #b6bac2; text-decoration: none; cursor: default; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-text-button.acd-remove { color: #909399; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-text-button.acd-remove:is(:hover, :focus-visible) { color: #f56c6c; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) :is(button, input, textarea, [tabindex]):focus-visible { outline: 2px solid #008fd5; outline-offset: 2px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status { display: inline; padding: 2px 5px; border-radius: 2px; font-size: 11px; font-weight: normal; white-space: nowrap; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.done { color: #529b2e; background: #f0f9eb; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.active { color: #008fd5; background: #ecf5ff; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.rejected { color: #f34b4b; background: #fef0f0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-status.unstarted { color: #909399; background: #f4f4f5; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-empty { color: #909399; text-align: center; font-size: 13px; padding: 20px 0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .flow-timeline { padding: 0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline { list-style: none; margin: 0; padding: 0 0 0 10px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node { position: relative; min-width: 0; padding: 0 0 24px 24px; border-left: 2px dashed #e1e5ec; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node:last-child { border-left-color: transparent; padding-bottom: 14px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-mark { position: absolute; left: -8px; top: 3px; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; color: #fff; background: #67c23a; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-mark { background: #ffb900; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-mark { background: #f34b4b; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.waiting .acd-node-mark { background: #b6bac2; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; line-height: 20px; font-size: 12px; overflow-wrap: anywhere; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-node-title > span { color: #67c23a; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.pending .acd-node-title > span { color: #e6a000; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.rejected .acd-node-title > span { color: #f34b4b; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node.waiting .acd-node-title > span { color: #909399; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-timeline-node time { font-size: 11px; color: #303133; white-space: nowrap; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-sign-rule { color: #909399; font-size: 12px; line-height: 19px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-people { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person { display: inline-flex; align-items: center; gap: 5px; padding: 0 8px 0 0; background: #f2f3f8; border-radius: 16px; font-size: 11px; line-height: 25px; color: #303133; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person-icon { display: flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; color: #fff; background: #909399; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.agreed .acd-person-icon { background: #67c23a; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-person.rejected .acd-person-icon { background: #f34b4b; }
 #approval-record-drawer { display: none; position: fixed; inset: 0; z-index: 2100; justify-content: flex-end; overflow: hidden; background: #0003; }
 #approval-record-drawer .acd-panel { display: flex; flex-direction: column; width: 520px; max-width: 100%; height: 100%; min-width: 0; background: #fff; box-shadow: -6px 0 24px #0002; animation: acd-slide-in .24s ease-out; }
 #approval-record-drawer[data-kind="view"] .acd-panel { width: 720px; }
@@ -143,30 +147,100 @@
 #approval-record-drawer .acd-connector::after { content: ''; position: absolute; bottom: 0; left: -4px; border: 5px solid transparent; border-bottom: 0; border-top: 7px solid #ccd8e5; }
 #approval-record-drawer .acd-graph-branches { display: flex; gap: 56px; padding-top: 24px; border-top: 2px solid #ccd8e5; }
 #approval-record-drawer .acd-graph-branch { display: flex; flex-direction: column; align-items: center; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form { min-width: 0; font-size: 12px; color: #303133; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .pfd-table-scroll { width: 100%; overflow-x: auto; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .exam-section-banner { background: #f0f4f8; padding: 9px 14px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; border-left: 3px solid #008fd5; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .exam-section-banner:first-child { margin-top: 0; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .exam-sub-title { font-weight: 700; margin: 12px 0 8px; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form table { width: 100%; min-width: 680px; border-collapse: collapse; margin-bottom: 12px; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form :is(th, td) { border: 1px solid #ebeef5; padding: 8px 10px; line-height: 18px; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form th { background: #f8fafc; color: #606266; font-weight: 600; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form input { height: 26px; border: 1px solid #dcdfe6; border-radius: 2px; font: inherit; color: #303133; background: #fff; padding: 0 6px; box-sizing: border-box; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .exam-score-input { width: 70px; text-align: center; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .exam-remark-input { width: 100%; min-width: 110px; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .field-row-plain { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .field-item-plain { flex: 1 1 220px; min-width: 0; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .col-full { flex-basis: 100%; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form .field-label-text { display: block; margin-bottom: 8px; color: #606266; }
-:is(#detail-modal, #approval-record-drawer) .acd-personnel-form :is(.field-value-box, .field-textarea-box) { padding: 10px 12px; border: 1px solid #dcdfe6; border-radius: 3px; line-height: 20px; overflow-wrap: anywhere; background: #fafbfc; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form { min-width: 0; font-size: 12px; color: #303133; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .pfd-table-scroll { width: 100%; overflow-x: auto; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .exam-section-banner { background: #f0f4f8; padding: 9px 14px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; border-left: 3px solid #008fd5; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .exam-section-banner:first-child { margin-top: 0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .exam-sub-title { font-weight: 700; margin: 12px 0 8px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form table { width: 100%; min-width: 680px; border-collapse: collapse; margin-bottom: 12px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form :is(th, td) { border: 1px solid #ebeef5; padding: 8px 10px; line-height: 18px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form th { background: #f8fafc; color: #606266; font-weight: 600; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form input { height: 26px; border: 1px solid #dcdfe6; border-radius: 2px; font: inherit; color: #303133; background: #fff; padding: 0 6px; box-sizing: border-box; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .exam-score-input { width: 70px; text-align: center; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .exam-remark-input { width: 100%; min-width: 110px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .field-row-plain { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .field-item-plain { flex: 1 1 220px; min-width: 0; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .col-full { flex-basis: 100%; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form .field-label-text { display: block; margin-bottom: 8px; color: #606266; }
+:is(:is(#detail-modal, #related-form-drawer), #approval-record-drawer) .acd-personnel-form :is(.field-value-box, .field-textarea-box) { padding: 10px 12px; border: 1px solid #dcdfe6; border-radius: 3px; line-height: 20px; overflow-wrap: anywhere; background: #fafbfc; }
 @keyframes acd-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
-@media (max-width: 1000px) { #detail-modal { --acd-sidebar-width: 340px; } #detail-modal .detail-modal-box { width: 98vw; } #detail-modal .detail-form-title-row { flex: 1 1 0; } #detail-modal .detail-meta { flex: 0 1 auto; max-width: 40%; } }
+#related-form-drawer { display: none; position: fixed; inset: 0; z-index: 2200; justify-content: flex-end; align-items: stretch; background: transparent; pointer-events: none; }
+#detail-modal { background: transparent; pointer-events: none; }
+#detail-modal .detail-modal-box { pointer-events: auto; }
+#approval-record-drawer { background: transparent; pointer-events: none; }
+#related-form-drawer .detail-modal-box { width: 90vw; pointer-events: auto; }
+#related-form-drawer.acd-collapsed .acd-related-status { display: none; }
+:is(#detail-modal, #related-form-drawer, #approval-record-drawer) .acd-readonly-fields { display: grid; grid-template-columns: 100px minmax(0, 1fr); font-size: 13px; }
+:is(#detail-modal, #related-form-drawer, #approval-record-drawer) .acd-readonly-fields :is(dt, dd) { margin: 0; padding: 12px; border-bottom: 1px solid #e4e7ed; overflow-wrap: anywhere; }
+:is(#detail-modal, #related-form-drawer, #approval-record-drawer) .acd-readonly-fields dt { background: #f5f7fa; color: #909399; }
+:is(#detail-modal, #related-form-drawer) .acd-operation-log table, #detail-modal #pane-log table { min-width: 440px; }
+:is(#detail-modal, #related-form-drawer) :is(#detail-footer, .acd-record-footer) { background: #f5f6fa; gap: 10px; padding: 10px 16px; }
+:is(#detail-modal, #related-form-drawer) :is(#detail-footer, .acd-record-footer) button { height: 28px; padding: 0 13px; border: 1px solid #dcdfe6; border-radius: 2px; background: #fff; color: #303133; font-size: 14px; font-weight: 400; line-height: 26px; }
+:is(#detail-modal, #related-form-drawer) :is(#detail-footer, .acd-record-footer) .btn-primary { background: #009fdb; color: #fff; border-color: #009fdb; }
+:is(#detail-modal, #related-form-drawer) #detail-footer .acd-blue-outline { color: #009fdb; border-color: #009fdb; }
+:is(#detail-modal, #related-form-drawer) #detail-footer .acd-danger-outline { color: #f56c6c; border-color: #f56c6c; background: #fff; }
+#approval-record-drawer { z-index: 2400; }
+#approval-record-drawer[data-kind="history"] { justify-content: center; align-items: center; background: #0003; pointer-events: auto; }
+#approval-record-drawer[data-kind="history"] .acd-panel { width: 94vw; max-width: 2200px; height: 94vh; animation: none; }
+#approval-record-drawer[data-kind="history"] .acd-panel-header { position: relative; height: 44px; min-height: 44px; justify-content: center; background: #f5f6fa; padding: 0 44px; }
+#approval-record-drawer[data-kind="history"] .acd-panel-close { position: absolute; right: 10px; }
+#approval-record-drawer[data-kind="history"] .acd-panel-body { padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+#approval-record-drawer .acd-history-meta { margin-left: auto; color: #909399; font-size: 12px; }
+#approval-record-drawer .acd-history-tabs { display: flex; flex-shrink: 0; gap: 24px; padding: 0 18px; border-bottom: 1px solid #dcdfe6; }
+#approval-record-drawer .acd-history-tabs button { height: 42px; padding: 0; border: 0; border-bottom: 2px solid transparent; background: #fff; color: #303133; font: inherit; font-size: 13px; cursor: pointer; }
+#approval-record-drawer .acd-history-tabs button[aria-selected="true"] { color: #008fd5; border-color: #008fd5; }
+#approval-record-drawer .acd-history-content { flex: 1; min-height: 0; overflow: auto; padding: 24px; }
+#approval-link-modal { display: none; position: fixed; inset: 0; z-index: 2150; justify-content: center; align-items: center; background: #0003; font-size: 13px; }
+#approval-link-modal .acd-link-dialog { display: flex; flex-direction: column; width: 96vw; max-width: 2200px; height: 88vh; min-width: 0; min-height: 0; background: #fff; box-shadow: 0 4px 24px #0003; }
+#approval-link-modal .acd-link-header { position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; background: #f5f6fa; border-bottom: 1px solid #ebeef5; }
+#approval-link-modal h2 { font-size: 16px; font-weight: 400; margin: 0; }
+#approval-link-modal .acd-panel-close { position: absolute; right: 10px; top: 6px; width: 28px; height: 28px; padding: 0; border: 0; background: transparent; color: #909399; font-size: 22px; cursor: pointer; }
+#approval-link-modal .acd-link-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 18px 24px; }
+#approval-link-modal .acd-link-filters label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+#approval-link-modal :is(input:not([type="checkbox"]), select) { width: 155px; height: 30px; padding: 0 8px; border: 1px solid #dcdfe6; border-radius: 3px; color: #606266; background: #fff; font: inherit; box-sizing: border-box; }
+#approval-link-modal input::placeholder { color: #b6bac2; }
+#approval-link-modal input[type="checkbox"] { accent-color: #009fdb; }
+#approval-link-modal .acd-link-results { flex: 1; min-height: 0; min-width: 0; margin: 0 24px 20px; overflow: auto; border: 1px solid #ebeef5; }
+#approval-link-modal table { width: 100%; min-width: 1060px; border-collapse: collapse; font-size: 13px; }
+#approval-link-modal :is(th, td) { padding: 10px; border-right: 1px solid #ebeef5; border-bottom: 1px solid #ebeef5; text-align: left; line-height: 20px; }
+#approval-link-modal th { background: #f5f5f5; color: #303133; }
+#approval-link-modal :is(th, td):first-child { width: 40px; text-align: center; }
+#approval-link-modal :is(th, td):nth-child(2) { min-width: 220px; }
+#approval-link-modal :is(th, td):nth-child(3) { max-width: 340px; overflow-wrap: anywhere; }
+#approval-link-modal :is(th, td):nth-child(4) { width: 168px; white-space: nowrap; }
+#approval-link-modal :is(th, td):nth-child(n+5) { width: 80px; white-space: nowrap; }
+#approval-link-modal .acd-text-button { border: 0; padding: 0; color: #009fdb; background: transparent; font: inherit; cursor: pointer; text-decoration: none; }
+#approval-link-modal .acd-status { display: inline-block; font-size: 12px; padding: 0 4px; border: 1px solid currentColor; border-radius: 2px; }
+#approval-link-modal .acd-status.active { color: #009fdb; }
+#approval-link-modal .acd-status.done { color: #67c23a; }
+#approval-link-modal .acd-status.rejected { color: #f56c6c; }
+#approval-link-modal .acd-linked-hint { margin-left: 8px; color: #909399; font-size: 12px; }
+#approval-link-modal .acd-empty { text-align: center; color: #909399; padding: 36px; }
+#approval-link-modal .acd-link-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 12px 24px; border-top: 1px solid #ebeef5; }
+#approval-link-modal :is(.acd-link-pagination, .acd-link-confirm) { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+#approval-link-modal .acd-link-confirm { margin-left: auto; }
+#approval-link-modal .acd-link-pagination { margin: 0 auto; }
+#approval-link-modal .acd-link-pagination :is(select, input) { width: 90px; }
+#approval-link-modal .acd-link-pagination input { width: 52px; margin: 0 8px; }
+#approval-link-modal .acd-link-pagination button { height: 30px; border: 1px solid #dcdfe6; border-radius: 2px; color: #606266; background: #fff; cursor: pointer; }
+#approval-link-modal .acd-link-pagination button:disabled { color: #b6bac2; cursor: default; }
+#approval-link-modal .acd-link-page-number { display: inline-flex; justify-content: center; align-items: center; width: 30px; height: 30px; color: #fff; background: #009fdb; border-radius: 2px; }
+#approval-link-modal :is(.acd-submit, .acd-outline-close) { height: 30px; padding: 0 12px; border: 1px solid #009fdb; border-radius: 2px; color: #fff; background: #009fdb; font: inherit; cursor: pointer; }
+#approval-link-modal .acd-submit:disabled { opacity: .45; cursor: default; }
+#approval-link-modal .acd-outline-close { color: #606266; background: #fff; border-color: #dcdfe6; }
+#approval-link-modal :is(button, input, select):focus-visible { outline: 2px solid #008fd5; outline-offset: 2px; }
+#table-body .op-group { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; }
+#table-body .op-btn { height: 28px; padding: 0 10px; border: 1px solid #009fdb; border-radius: 2px; background: #fff; color: #009fdb; font-size: 13px; line-height: 26px; }
+#table-body .op-btn.acd-row-danger { color: #f56c6c; border-color: #f56c6c; }
+#table-body .badge-withdrawn { color: #909399; border-color: #dcdfe6; background: #f4f4f5; }
+#table-body tr[aria-selected="true"] > td { background: #ecf5ff; }
+@media (max-width: 1000px) { :is(#detail-modal, #related-form-drawer) { --acd-sidebar-width: 340px; } :is(#detail-modal, #related-form-drawer) .detail-modal-box { width: 98vw; } :is(#detail-modal, #related-form-drawer) .detail-form-title-row { flex: 1 1 0; } :is(#detail-modal, #related-form-drawer) .detail-meta { flex: 0 1 auto; max-width: 40%; } }
 @media (max-width: 640px) {
-    #detail-modal .detail-modal-box, #detail-modal.acd-collapsed .detail-modal-box { width: 100vw; }
-    #detail-modal .acd-workspace { flex-direction: column; overflow: auto; }
-    #detail-modal .acd-content { flex: 0 0 45%; min-height: 200px; }
-    #detail-modal #approval-progress-panel { width: 100%; flex: 1 0 300px; border-left: 0; border-top: 1px solid #e1e5ec; }
-    #detail-modal .acd-edge-toggle { left: 0; }
-    #detail-modal.acd-collapsed #approval-progress-panel { width: calc(100% - 14px); margin-left: 14px; }
+    :is(#detail-modal, #related-form-drawer) .detail-modal-box, :is(#detail-modal, #related-form-drawer).acd-collapsed .detail-modal-box { width: 100vw; }
+    :is(#detail-modal, #related-form-drawer) .acd-workspace { flex-direction: column; overflow: auto; }
+    :is(#detail-modal, #related-form-drawer) .acd-content { flex: 0 0 45%; min-height: 200px; }
+    :is(#detail-modal, #related-form-drawer) .acd-sidebar { width: 100%; flex: 1 0 300px; border-left: 0; border-top: 1px solid #e1e5ec; }
+    :is(#detail-modal, #related-form-drawer) .acd-edge-toggle { left: 0; }
+    :is(#detail-modal, #related-form-drawer).acd-collapsed .acd-sidebar { width: calc(100% - 14px); margin-left: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { #approval-record-drawer .acd-panel { animation: none; } }

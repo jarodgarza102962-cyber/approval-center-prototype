@@ -96,7 +96,7 @@ function generateData(count, tabPrefix, types) {
 
     for (let i = 1; i <= count; i++) {
         const type = types[i % types.length];
-        const status = tabPrefix === 'mine' ? (i % 2 === 0 ? '已通过' : '进行中') : '进行中';
+        const status = tabPrefix === 'pending' ? '进行中' : i % 5 === 0 ? '已撤回' : i % 7 === 0 ? '已驳回' : i % 2 === 0 ? '已通过' : '进行中';
 
         let arrivalDate = new Date();
         if (i % 5 === 0) arrivalDate.setDate(arrivalDate.getDate() - 5);
@@ -115,6 +115,7 @@ function generateData(count, tabPrefix, types) {
             group: 'CNAS演示表单',
             node: currentNodeName,
             initiator: initiatorName,
+            supportsPdf: i % 4 !== 0,
             isJoint: (i % 4 === 0),
             currentNodeKey: currentNodeName,
             flowNodes: [
@@ -149,6 +150,20 @@ function generateData(count, tabPrefix, types) {
                 evalDate: ''
             }
         };
+
+        if (status === '已通过') {
+            item.node = '审批完成';
+            item.flowNodes.forEach(node => { node.status = 'done'; node.time ||= item.startTime; });
+        } else if (status === '已撤回') {
+            item.node = '-';
+            item.flowNodes.forEach((node, index) => { node.status = index ? 'pending' : 'done'; });
+        } else if (status === '已驳回') {
+            const rejected = item.flowNodes.find(node => node.key === item.currentNodeKey) || item.flowNodes.at(-1);
+            item.currentNodeKey = rejected.key; item.node = '-';
+            item.flowNodes.forEach(node => { node.status = node === rejected ? 'rejected' : 'done'; });
+            item.approvalDetails = item.approvalDetails.filter(log => log.nodeName !== rejected.name);
+            item.approvalDetails.push({ nodeName: rejected.name, user: '李何02', time: item.startTime, comment: '请补充考核材料。', action: 'reject', actionName: '驳回' });
+        }
 
         if (type === '岗位交接班记录zz') {
             item.preview = '岗位:内科;接班人:张三';
@@ -239,6 +254,8 @@ const DATA = {
 // ====================================================
 
 let currentTab = 'pending';
+let selectedRecordId = null;
+let detailContextTab = null;
 let currentFormType = '';      // 主列表：'' 表示全部表单
 let currentBatchFormType = ''; // 批量列表：'' 表示全部表单
 let colConfigs = {};           // { key: { keys: [], widths: {} } }
@@ -263,6 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadConfig();
     switchTab('pending');
     initDragHandle();
+    document.getElementById('table-body').addEventListener('click', event => {
+        if (event.target.closest('button, a, input, select, textarea, label')) return;
+        const row = event.target.closest('tr[data-record-id]');
+        if (!row) return;
+        markSelectedRecord(row.dataset.recordId);
+        if (document.getElementById('detail-modal').style.display === 'flex') openDetail(row.dataset.recordId);
+    });
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const returnModal = document.getElementById('return-modal');
@@ -369,16 +393,29 @@ function renderTable() {
     // 生成行
     if (data.length === 0) {
         tbody.innerHTML = `<tr><td colspan="${cols.length}" style="text-align:center;color:#999;padding:40px">暂无记录</td></tr>`;
+        document.getElementById('total-count').textContent = '0';
+        if (document.getElementById('detail-modal').style.display === 'flex') closeDetailModal();
         return;
     }
 
     tbody.innerHTML = data.map(row => `
-        <tr>
+        <tr data-record-id="${row.id}" aria-selected="${row.id === selectedRecordId}">
             ${cols.map(key => `<td>${getCellHtml(key, row)}</td>`).join('')}
         </tr>
     `).join('');
 
     document.getElementById('total-count').textContent = data.length;
+    if (document.getElementById('detail-modal').style.display === 'flex') {
+        const selected = data.find(row => row.id === selectedRecordId) || data[0];
+        if (selected.id !== currentDetailItem?.id || detailContextTab !== currentTab) openDetail(selected.id);
+    }
+}
+
+function markSelectedRecord(id) {
+    selectedRecordId = id;
+    document.querySelectorAll('#table-body tr[data-record-id]').forEach(row => {
+        row.setAttribute('aria-selected', String(row.dataset.recordId === id));
+    });
 }
 
 function getLabel(key) {
@@ -410,14 +447,16 @@ function getCellHtml(key, row) {
     if (key === 'checkbox') return `<input type="checkbox" class="batch-cb">`;
     if (key === 'title') return `<a href="#" class="link-primary" onclick="openDetail('${row.id}');return false;">${val}</a>`;
     if (key === 'status') {
-        const cls = val === '进行中' ? 'badge-progressing' : (val === '已通过' ? 'badge-passed' : 'badge-rejected');
+        const cls = val === '进行中' ? 'badge-progressing' : (['已通过', '审批完成'].includes(val) ? 'badge-passed' : val === '已撤回' ? 'badge-withdrawn' : 'badge-rejected');
         return `<span class="status-badge ${cls}">${val}</span>`;
     }
     if (key === 'ops') {
-        return `<div class="op-group">
-            <button class="op-btn" onclick="openDetail('${row.id}')">处理</button>
-            <button class="op-btn" onclick="showToast('正在打开PDF...')">PDF</button>
-        </div>`;
+        const process = currentTab === 'pending' && row.status === '进行中';
+        const pdf = row.supportsPdf !== false && row.source !== 'pane-ltab-content';
+        const mineAction = currentTab === 'mine' ? row.status === '已撤回'
+            ? `<button class="op-btn acd-row-danger" onclick="deleteRecord('${row.id}')">删除</button>`
+            : `<button class="op-btn" onclick="withdrawRecord('${row.id}')">撤回</button>` : '';
+        return `<div class="op-group"><button class="op-btn" onclick="openDetail('${row.id}')">${process ? '处理' : '查看'}</button>${pdf ? '<button class="op-btn" onclick="showToast(\'正在打开PDF预览...\')">PDF预览</button>' : ''}${mineAction}</div>`;
     }
 
     // 处理时长逻辑
@@ -658,19 +697,16 @@ let currentDetailItem = null;
 let currentFlowSort = 'asc';
 
 function openDetail(id) {
-    let item = null;
-    for (let tab in DATA) {
-        item = DATA[tab].find(r => r.id === id);
-        if (item) break;
-    }
-    if (!item && DATA.pending && DATA.pending.length > 0) {
-        item = DATA.pending[0];
-    }
+    const item = (DATA[currentTab] || []).find(record => record.id === id) || Object.values(DATA).flat().find(record => record.id === id);
     if (!item) return;
 
+    markSelectedRecord(item.id);
+    detailContextTab = currentTab;
     currentDetailItem = item;
     approvalDetail.open(item);
     switchDetailTab('content', document.querySelector('#detail-modal .detail-tab-btn'));
+    document.getElementById('pane-content').scrollTop = 0;
+    document.getElementById('pane-log').scrollTop = 0;
     renderDetailModal();
     document.getElementById('detail-modal').style.display = 'flex';
 }
@@ -681,9 +717,9 @@ function closeDetailModal() {
 }
 
 function switchDetailTab(tab, btn) {
-    document.querySelectorAll('.detail-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#detail-modal .detail-tab-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    document.querySelectorAll('.detail-tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#detail-modal .detail-tab-pane').forEach(p => p.classList.remove('active'));
     document.getElementById('pane-' + tab).classList.add('active');
 }
 
@@ -702,6 +738,8 @@ function renderDetailModal() {
 
     // 2. 表单内容 Tab
     renderDetailFormContent();
+    const canEdit = item.status === '进行中' && (currentTab === 'pending' || (currentTab === 'mine' && item.currentNodeKey === '发起人'));
+    if (!canEdit) document.querySelectorAll('#form-content-container input, #form-content-container textarea, #form-content-container select').forEach(input => { input.disabled = true; });
 
     // 审批进度与关联表单统一展示在右侧。
     renderDetailFlow();
@@ -725,15 +763,7 @@ function renderDetailSidebar() {
 }
 
 function switchDetailItem(id) {
-    let item = null;
-    for (let tab in DATA) {
-        item = DATA[tab].find(r => r.id === id);
-        if (item) break;
-    }
-    if (item) {
-        currentDetailItem = item;
-        renderDetailModal();
-    }
+    openDetail(id);
 }
 
 // 渲染表单内容 (对应截图 2 岗位技能评估表)
@@ -996,13 +1026,13 @@ function changeFlowSort(sort) {
 function renderDetailLogs() {
     const tbody = document.getElementById('detail-log-tbody');
     if (!tbody || !currentDetailItem) return;
+    if (window.approvalDetail) { window.approvalDetail.renderOperationLogs(tbody, currentDetailItem); return; }
     const logs = currentDetailItem.logs || [];
     tbody.innerHTML = logs.map(l => `
         <tr>
             <td>${l.user}</td>
-            <td>${l.action}</td>
-            <td>${l.comment || '-'}</td>
             <td>${l.time}</td>
+            <td><button class="acd-text-button" type="button">查看</button></td>
         </tr>
     `).join('');
 }
@@ -1010,30 +1040,47 @@ function renderDetailLogs() {
 function renderDetailFooter() {
     const footer = document.getElementById('detail-footer');
     if (!footer || !currentDetailItem) return;
-    if (currentDetailItem.source === 'pane-ltab-content' && currentDetailItem.status !== '进行中') {
-        footer.innerHTML = '<button class="btn-default" onclick="closeDetailModal()">关闭</button>';
-        return;
-    }
     const isInitiatorEditing = (currentDetailItem.currentNodeKey === '发起人' || currentDetailItem.node === '发起人');
-
-    if (isInitiatorEditing) {
+    const copy = '<button class="btn-default acd-blue-outline" onclick="showToast(\'已复制新表单\')">复制发起</button>';
+    const withdraw = `<button class="btn-default acd-blue-outline" onclick="withdrawRecord('${currentDetailItem.id}')">撤回</button>`;
+    const close = '<button class="btn-default" onclick="closeDetailModal()">关闭</button>';
+    if (['done', 'cc'].includes(currentTab) || currentDetailItem.status === '已撤回') {
+        footer.innerHTML = close;
+    } else if (currentTab === 'mine' && !isInitiatorEditing) {
+        footer.innerHTML = withdraw + copy + close;
+    } else if (isInitiatorEditing && currentDetailItem.status === '进行中') {
         footer.innerHTML = `
-            <button class="btn-default" onclick="saveFormDraft()">保存</button>
-            <button class="btn-default" onclick="showToast('已撤回表单')">撤回</button>
-            <button class="btn-primary" onclick="submitReEdit()">提交</button>
-            <button class="btn-default" onclick="showToast('已复制新表单')">复制发起</button>
-            <button class="btn-default" onclick="closeDetailModal()">关闭</button>
+            <button class="btn-primary" onclick="submitReEdit()">重新提交</button>
+            ${withdraw}${copy}
         `;
-    } else {
+    } else if (currentTab === 'pending' && currentDetailItem.status === '进行中') {
         footer.innerHTML = `
-            <button class="btn-default" onclick="saveFormDraft()">保存</button>
+            ${currentDetailItem.initiator === '李何02' ? withdraw : ''}
             <button class="btn-primary" onclick="confirmApproveCurrent()">同意</button>
-            <button class="btn-default btn-warning-outline" onclick="openReturnModal()">退回</button>
-            <button class="btn-danger" onclick="confirmRejectCurrent()">拒绝</button>
-            <button class="btn-default" onclick="showToast('已复制新表单')">复制发起</button>
-            <button class="btn-default" onclick="closeDetailModal()">关闭</button>
+            <button class="btn-default" onclick="openReturnModal()">退回</button>
+            <button class="btn-danger acd-danger-outline" onclick="confirmRejectCurrent()">拒绝</button>
+            ${copy}
         `;
-    }
+    } else footer.innerHTML = copy + close;
+}
+
+function withdrawRecord(id) {
+    const record = Object.values(DATA).flat().find(item => item.id === id);
+    if (!record || record.status === '已撤回') return;
+    record.status = '已撤回'; record.node = '-';
+    record.logs ||= [];
+    record.logs.push({ user: '李何02', action: '撤回', time: formatNowTime() });
+    DATA.pending = DATA.pending.filter(item => item.id !== id);
+    if (currentDetailItem?.id === id) renderDetailModal();
+    renderTable(); showToast('已撤回表单');
+}
+
+function deleteRecord(id) {
+    const record = DATA.mine.find(item => item.id === id);
+    if (!record || record.status !== '已撤回') return;
+    if (!window.confirm('确定删除该已撤回的记录吗？')) return;
+    Object.keys(DATA).forEach(tab => { DATA[tab] = DATA[tab].filter(item => item.id !== id); });
+    renderTable(); showToast('已删除记录');
 }
 
 // ===================================
@@ -1203,6 +1250,7 @@ function submitReEdit() {
 }
 
 function saveFormDraft() {
+    window.approvalDetail?.saveVersion(currentDetailItem);
     showToast('草稿保存成功', 'success');
 }
 
