@@ -154,7 +154,7 @@
         return ['已通过', '已完成'].includes(record.status) ? 'done' : record.status === '进行中' ? 'active' : ['未发起', '已撤回'].includes(record.status) ? 'unstarted' : 'rejected';
     }
     function badge(record) { return `<span class="acd-status ${statusClass(record)}">${esc(record.status)}</span>`; }
-    function relationTag(record) { return record.relation === '主表单' ? '<span class="acd-relation-main">主表单</span>' : `<span class="acd-relation-text">${esc(record.relation)}</span>`; }
+    function relationTag(record) { return `<span class="acd-relation-tag">${esc(record.relation)}</span>`; }
     const timelineIcons = {
         user: '<circle cx="12" cy="8" r="3"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>',
         check: '<path d="m5 12 4 4L19 6"/>',

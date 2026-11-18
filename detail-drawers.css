@@ -54,8 +54,7 @@
 :is(#detail-modal, #related-form-drawer) .acd-progress-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 10px; min-width: 0; }
 :is(#detail-modal, #related-form-drawer) .acd-summary-info { display: flex; align-items: center; flex-wrap: wrap; flex: 1 1 140px; min-width: 0; gap: 6px; }
 :is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-status { display: inline-flex; align-items: center; padding: 0 5px; font-size: 12px; line-height: 20px; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-text { color: #909399; font-size: 12px; line-height: 20px; white-space: nowrap; }
-:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-main { color: #008fd5; font-size: 12px; line-height: 20px; white-space: nowrap; }
+:is(#detail-modal, #related-form-drawer) .acd-progress-item .acd-relation-tag { display: inline-flex; align-items: center; padding: 0 5px; border: 1px solid #dcdfe6; border-radius: 2px; background: #fff; color: #606266; font-size: 12px; line-height: 18px; white-space: nowrap; }
 :is(#detail-modal, #related-form-drawer) .acd-item-actions { display: flex; align-items: center; flex-wrap: wrap; flex: 0 0 auto; margin-left: auto; gap: 12px; }
 :is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button,
 :is(#detail-modal, #related-form-drawer) :is(.acd-item-actions, .acd-progress-tools) .acd-text-button:hover { text-decoration: none; }
