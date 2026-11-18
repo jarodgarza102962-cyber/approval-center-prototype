@@ -248,7 +248,6 @@
 #approval-system-nav button:hover { background: #26394d; }
 #approval-system-nav button[aria-current="page"] { background: #409eff; }
 #approval-system-nav button:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
-.app-shell.acd-launch-workspace { padding-left: 54px; }
 .app-shell.acd-launch-workspace .topbar-left { min-width: 0; }
 .app-shell.acd-launch-workspace .app-name { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #approval-record-drawer[data-kind="launch"] { top: var(--ace-workspace-top, 40px); left: var(--ace-workspace-left, 54px); justify-content: stretch; align-items: stretch; background: transparent; }

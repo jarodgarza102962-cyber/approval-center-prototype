@@ -422,7 +422,6 @@
     const originalAppName = appName.textContent;
     function setLaunchWorkspace(enabled) {
         appShell.classList.toggle('acd-launch-workspace', enabled);
-        systemNav.hidden = !enabled;
         if (!enabled) {
             appName.textContent = originalAppName;
             systemNav.querySelectorAll('[data-system-entry]').forEach(button => {

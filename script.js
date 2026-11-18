@@ -356,7 +356,8 @@ function renderTable() {
     cols.forEach(key => {
         const label = getLabel(key);
         const w = widths[key] ? `style="width:${widths[key]}px"` : '';
-        const sortIcon = (currentSort.key === key) ? (currentSort.order === 'asc' ? ' ↑' : ' ↓') : '';
+        const sortClass = (currentSort.key === key) ? (currentSort.order === 'asc' ? 'ascending' : 'descending') : '';
+        const sortIcon = `<span class="sort-caret-wrapper ${sortClass}"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span>`;
 
         headHtml += `<th data-col="${key}" ${w} onclick="toggleSort('${key}')">
             <div class="th-content">${label}${sortIcon}</div>
@@ -621,7 +622,7 @@ function getActiveColConfig(ctx) {
         } else {
             // 主列表默认列
             colConfigs[sk] = {
-                keys: ['title', 'status', ...(businessFields.length > 0 ? businessFields : ['preview']), 'startTime', 'ops'],
+                keys: ['title', 'preview', 'group', 'startTime', 'status', 'node', 'ops'],
                 widths: {}
             };
         }

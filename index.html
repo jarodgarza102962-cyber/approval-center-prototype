@@ -4,422 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>审批中心</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="detail-drawers.css?v=20261118-7">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <title>朗珈病理信息系统 - 审批中心</title>
+    <link rel="stylesheet" href="style.css?v=20261118-ui-align-2">
+    <link rel="stylesheet" href="detail-drawers.css?v=20261118-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="app-container">
+        <!-- ====== 左侧系统一级导航栏 (46px) ====== -->
+        <nav id="approval-system-nav" aria-label="系统切换">
+            <div class="acd-system-brand" title="朗珈病理信息系统">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 12.5L9.5 18L20 6" stroke="#008FD5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <button type="button" data-system-entry="首页">首页</button>
+            <button type="button" data-system-entry="设置">设置</button>
+            <button type="button" data-system-entry="体系管理">体系<br>管理</button>
+            <button type="button" data-system-entry="审批" class="active" aria-current="page">审批</button>
+            <button type="button" data-system-entry="文件">文件</button>
+            <button type="button" data-system-entry="电子记录">电子<br>记录</button>
+            <button type="button" data-system-entry="评审管理">评审<br>管理</button>
+            <button type="button" data-system-entry="统计">统计</button>
+            <button type="button" data-system-entry="人员">人员</button>
+            <button type="button" data-system-entry="设备">设备</button>
+            <button type="button" data-system-entry="试剂">试剂</button>
+            <button type="button" data-system-entry="考试">考试</button>
+            <button type="button" data-system-entry="环境">环境</button>
+            <button type="button" data-system-entry="质控">质控</button>
+            <button type="button" data-system-entry="设计">设计</button>
+        </nav>
 
-    <nav id="approval-system-nav" aria-label="系统切换" hidden>
-        <div class="acd-system-brand">朗珈</div>
-        <button type="button" data-system-entry="首页">首页</button>
-        <button type="button" data-system-entry="设置">设置</button>
-        <button type="button" data-system-entry="体系管理">体系<br>管理</button>
-        <button type="button" data-system-entry="审批" aria-current="page">审批</button>
-        <button type="button" data-system-entry="文件">文件</button>
-        <button type="button" data-system-entry="电子记录">电子<br>记录</button>
-        <button type="button" data-system-entry="评审管理">评审<br>管理</button>
-        <button type="button" data-system-entry="统计">统计</button>
-        <button type="button" data-system-entry="人员">人员</button>
-        <button type="button" data-system-entry="设备">设备</button>
-        <button type="button" data-system-entry="试剂">试剂</button>
-        <button type="button" data-system-entry="考试">考试</button>
-        <button type="button" data-system-entry="环境">环境</button>
-        <button type="button" data-system-entry="质控">质控</button>
-        <button type="button" data-system-entry="设计">设计</button>
-    </nav>
+        <!-- ====== 主框架 App Shell ====== -->
+        <div class="app-shell">
 
-    <!-- ====== App Shell ====== -->
-    <div class="app-shell">
+            <!-- 顶部系统导航栏 (50px 白底规范) -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn sidebar-toggle" title="展开/收起菜单">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                    </button>
+                    <span class="app-name">朗珈病理信息系统 - 审批中心</span>
+                    <span class="version-tag">V1.8.41</span>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn primary-btn">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M15 10l5 5-5 5" />
+                            <path d="M4 4v7a4 4 0 004 4h12" />
+                        </svg>
+                        在线会议
+                        <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5" />
+                        </svg>
+                    </button>
+                    <button class="topbar-icon-btn" title="消息">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
+                        </svg>
+                        <span class="badge-dot">18</span>
+                    </button>
+                    <button class="topbar-icon-btn" title="设置默认页">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>
+                        <span>设置默认页</span>
+                    </button>
+                    <button class="topbar-icon-btn" title="全屏">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M8 3H5a2 2 0 00-2 2v3M21 8V5a2 2 0 00-2-2h-3M3 16v3a2 2 0 002 2h3M16 21h3a2 2 0 002-2v-3" />
+                        </svg>
+                        <span>全屏</span>
+                    </button>
+                    <button class="topbar-icon-btn" title="锁屏">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                        </svg>
+                        <span>锁屏</span>
+                    </button>
+                    <button class="topbar-icon-btn" onclick="showToast('刷新成功')" title="刷新">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M23 4v6h-6M1 20v-6h6" />
+                            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+                        </svg>
+                        <span>刷新</span>
+                    </button>
+                    <div class="topbar-divider"></div>
+                    <span class="lang-switch">中文简体</span>
+                    <span class="dept-switch">本部</span>
+                    <div class="user-avatar-wrap">
+                        <div class="user-avatar">李</div>
+                    </div>
+                    <span class="username">李何02 ▾</span>
+                </div>
+            </header>
 
-        <!-- Top Navigation Bar -->
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="icon-btn sidebar-toggle" title="菜单">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="3" y1="6" x2="21" y2="6" />
+            <!-- 主页签栏 Page Tab Bar (32px 白底规范) -->
+            <div class="page-tabbar">
+                <div class="page-tabbar-menu-toggle" title="视图折叠">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
                         <line x1="3" y1="18" x2="21" y2="18" />
                     </svg>
-                </button>
-                <span class="app-name">朗珈病理信息系统 - 审批中心</span>
-                <span class="version-tag">V1.8.2</span>
-            </div>
-            <div class="topbar-right">
-                <button class="topbar-btn primary-btn">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M15 10l5 5-5 5" />
-                        <path d="M4 4v7a4 4 0 004 4h12" />
-                    </svg>
-                    在线会议
-                    <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 10l5 5 5-5" />
-                    </svg>
-                </button>
-                <button class="topbar-icon-btn" title="消息">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
-                    </svg>
-                    <span class="badge-dot">11</span>
-                </button>
-                <button class="topbar-icon-btn" title="设置默认页">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                    </svg>
-                    <span>设置默认页</span>
-                </button>
-                <button class="topbar-icon-btn" title="全屏">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path
-                            d="M8 3H5a2 2 0 00-2 2v3M21 8V5a2 2 0 00-2-2h-3M3 16v3a2 2 0 002 2h3M16 21h3a2 2 0 002-2v-3" />
-                    </svg>
-                    <span>全屏</span>
-                </button>
-                <button class="topbar-icon-btn" onclick="showToast('刷新成功')" title="刷新">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M23 4v6h-6M1 20v-6h6" />
-                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
-                    </svg>
-                    <span>刷新</span>
-                </button>
-                <div class="topbar-divider"></div>
-                <span class="lang-switch">中文简体</span>
-                <span class="dept-switch">本部</span>
-                <div class="user-avatar-wrap">
-                    <div class="user-avatar">李</div>
                 </div>
-                <span class="username">李何022</span>
-            </div>
-        </header>
-
-        <!-- Page Tab Bar -->
-        <div class="page-tabbar">
-            <div class="page-tab active">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M9 9h6M9 12h6M9 15h4" />
-                </svg>
-                审批中心
-                <button class="tab-close-btn">×</button>
-            </div>
-        </div>
-
-        <!-- Main Layout -->
-        <div class="main-layout">
-            <main class="content-area">
-                <!-- === Tab Nav === -->
-                <div class="tab-nav">
-                    <button class="tab-btn" id="tab-mine" onclick="switchTab('mine')">我申请的(<span
-                            id="cnt-mine">95</span>)</button>
-                    <button class="tab-btn active" id="tab-pending" onclick="switchTab('pending')">待我处理(<span
-                            id="cnt-pending">70</span>)</button>
-                    <button class="tab-btn" id="tab-done" onclick="switchTab('done')">已审批(<span
-                            id="cnt-done">99+</span>)</button>
-                    <button class="tab-btn" id="tab-cc" onclick="switchTab('cc')">抄送我的(<span
-                            id="cnt-cc">4</span>)</button>
+                <div class="page-tab">
+                    发起审批
+                    <button class="tab-close-btn" title="关闭">×</button>
                 </div>
-
-                <!-- === Filter Bar: 待我处理 === -->
-                <div class="filter-bar" id="filter-bar-pending">
-                    <!-- ★ 按表单查看入口 (移至首位) -->
-                    <div class="filter-group form-mode-entry">
-                        <label>按表单查看：</label>
-                        <select class="filter-select form-type-select" id="filter-form-type"
-                            onchange="onFormTypeChange(this.value)">
-                            <option value="">-- 全部表单 --</option>
-                            <option value="岗位交接班记录zz">岗位交接班记录zz</option>
-                            <option value="病理科人员能力评估表-医师系列">病理科人员能力评估</option>
-                            <option value="供应商评价表">供应商评价表</option>
-                            <option value="文件修订申请表">文件修订申请表</option>
-                        </select>
-                    </div>
-
-                    <!-- 审批状态 -->
-                    <div class="filter-group">
-                        <label>审批状态：</label>
-                        <select class="filter-select" id="filter-status">
-                            <option value="进行中">进行中</option>
-                            <option value="待处理">待处理</option>
-                        </select>
-                    </div>
-
-                    <!-- 表单标签 -->
-                    <div class="filter-group">
-                        <label>表单标签：</label>
-                        <select class="filter-select" id="filter-tag">
-                            <option value="">请选择</option>
-                            <option>cnas人员档案</option>
-                            <option>cnas演示表单</option>
-                            <option>文件修订</option>
-                        </select>
-                    </div>
-
-                    <!-- 关键字搜索 -->
-                    <div class="filter-group">
-                        <label>标题：</label>
-                        <input type="text" placeholder="根据标题查询" class="filter-input" id="search-input">
-                    </div>
-
-                    <!-- 发起时间 -->
-                    <div class="filter-group">
-                        <label>发起时间：</label>
-                        <input type="date" class="filter-input" id="filter-start">
-                        <span style="margin:0 4px;color:#999">-</span>
-                        <input type="date" class="filter-input" id="filter-end">
-                    </div>
-
-                    <!-- 动态生成的筛选条件容器 -->
-                    <div id="dynamic-filters-container" style="display:contents"></div>
-
-                    <div style="margin-left:auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                        <button class="btn-primary" onclick="doSearch()">查询</button>
-                        <button class="btn-default" onclick="resetSearch()">重置</button>
-                        <div class="topbar-divider" style="background:#ddd; height:20px; margin:0 5px;"></div>
-                        <button class="btn-primary" onclick="openBatchModal()">批量审批</button>
-
-                        <!-- 移动后的自定义筛选条件按钮 -->
-                        <button class="btn-default btn-filter-custom" onclick="openCustomFilterModal()">
-                            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24" style="margin-right:4px">
-                                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
-                            </svg>
-                            自定义筛选条件
-                        </button>
-
-                        <button class="btn-default btn-custom-col" id="btn-custom-col" onclick="openCustomColModal()">
-                            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24" style="margin-right:4px">
-                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-                            </svg>
-                            列表自定义列
-                        </button>
-                    </div>
-                </div>
-
-                <!-- === Filter Bar: 我申请的 === -->
-                <div class="filter-bar hidden" id="filter-bar-mine">
-                    <div class="filter-group">
-                        <label>审批状态：</label>
-                        <select class="filter-select">
-                            <option value="">全部</option>
-                            <option>进行中</option>
-                            <option>已通过</option>
-                            <option>已驳回</option>
-                            <option>已撤回</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>表单类型：</label>
-                        <select class="filter-select">
-                            <option value="">全部表单</option>
-                            <option>岗位交接班记录</option>
-                            <option>人员能力评估</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>标题：</label>
-                        <input type="text" class="filter-input" placeholder="请输入标题" style="width:160px">
-                    </div>
-                    <div class="filter-group">
-                        <label>发起时间：</label>
-                        <input type="date" class="filter-input"> - <input type="date" class="filter-input">
-                    </div>
-                    <div style="margin-left:auto; display:flex; gap:10px;">
-                        <button class="btn-primary">查询</button>
-                        <button class="btn-default">重置</button>
-                        <button class="btn-default" onclick="openCustomFilterModal()">自定义筛选</button>
-                    </div>
-                </div>
-
-                <!-- === Filter Bar: 已审批记录 === -->
-                <div class="filter-bar hidden" id="filter-bar-done">
-                    <div class="filter-group">
-                        <label>处理结果：</label>
-                        <select class="filter-select">
-                            <option value="">全部</option>
-                            <option>我通过的</option>
-                            <option>我拒绝的</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>表单类型：</label>
-                        <select class="filter-select">
-                            <option value="">全部表单</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>关键字：</label>
-                        <input type="text" class="filter-input" placeholder="标题/流水号" style="width:160px">
-                    </div>
-                    <div class="filter-group">
-                        <label>完成时间：</label>
-                        <input type="date" class="filter-input"> - <input type="date" class="filter-input">
-                    </div>
-                    <div style="margin-left:auto; display:flex; gap:10px;">
-                        <button class="btn-primary">查询</button>
-                        <button class="btn-default">重置</button>
-                        <button class="btn-default" onclick="openCustomFilterModal()">自定义筛选</button>
-                    </div>
-                </div>
-
-                <!-- === Filter Bar: 抄送我的 === -->
-                <div class="filter-bar hidden" id="filter-bar-cc">
-                    <div class="filter-group">
-                        <label>阅读状态：</label>
-                        <select class="filter-select">
-                            <option value="">全部</option>
-                            <option>未读</option>
-                            <option>已读</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>发起人：</label>
-                        <input type="text" class="filter-input" placeholder="搜索发起人" style="width:120px">
-                    </div>
-                    <div class="filter-group">
-                        <label>表单类型：</label>
-                        <select class="filter-select">
-                            <option value="">全部表单</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>抄送时间：</label>
-                        <input type="date" class="filter-input"> - <input type="date" class="filter-input">
-                    </div>
-                    <div style="margin-left:auto; display:flex; gap:10px;">
-                        <button class="btn-primary">查询</button>
-                        <button class="btn-default" onclick="openCustomFilterModal()">自定义筛选</button>
-                    </div>
-                </div>
-
-                <!-- === Data Table === -->
-                <div class="table-wrap">
-                    <table class="data-table" id="main-table">
-                        <thead id="table-head"></thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
-                </div>
-
-                <!-- === Pagination === -->
-                <div class="pagination-bar">
-                    <span class="total-info">共 <span id="total-count">70</span> 条</span>
-                    <div class="page-size-select">
-                        <select onchange="changePageSize(this.value)">
-                            <option value="50">50条/页</option>
-                            <option value="20">20条/页</option>
-                            <option value="100">100条/页</option>
-                        </select>
-                    </div>
-                    <div class="page-nav">
-                        <button class="page-btn" onclick="changePage(-1)">‹</button>
-                        <button class="page-btn active" id="page-1">1</button>
-                        <button class="page-btn" id="page-2" onclick="gotoPage(2)">2</button>
-                        <button class="page-btn" id="page-3" style="display:none" onclick="gotoPage(3)">3</button>
-                        <button class="page-btn" onclick="changePage(1)">›</button>
-                    </div>
-                    <span class="goto-page">前往 <input type="number" value="1" min="1" id="goto-input"
-                            style="width:44px;text-align:center;border:1px solid #d9d9d9;border-radius:4px;padding:2px 4px;">
-                        页</span>
-                </div>
-            </main>
-        </div>
-        <!-- ====================================================
-     MODAL: 自定义筛选条件
-     ===================================================== -->
-        <div class="modal-overlay" id="custom-filter-modal" style="display:none">
-            <div class="modal-box" style="width: 800px; max-height: 85vh;">
-                <div class="modal-header">
-                    <span class="modal-title">筛选符合下面条件的记录</span>
-                    <button class="modal-close" onclick="closeCustomFilterModal()">×</button>
-                </div>
-                <div class="modal-body" style="overflow-y:auto">
-                    <div class="filter-tags-container" id="filter-tags-container">
-                        <!-- 动态渲染字段标签 -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-default" onclick="closeCustomFilterModal()">取 消</button>
-                    <button class="btn-default" style="color:#ff4d4f; border-color:#ff4d4f"
-                        onclick="clearFilterTags()">清空条件</button>
-                    <button class="btn-primary" onclick="applyCustomFilters()">确 定</button>
+                <div class="page-tab active">
+                    审批中心
+                    <button class="tab-close-btn" title="关闭">×</button>
                 </div>
             </div>
-        </div>
 
-        <!-- 样式参考: 审批列表_自定义列.png
-        左栏: 所有可用字段(checkbox) + 搜索框
-        右栏: 已选显示字段
-        ===================================================== -->
-        <div class="modal-overlay" id="custom-col-modal" style="display:none">
-            <div class="modal-box custom-col-box">
-                <div class="modal-header">
-                    <span class="modal-title">列表自定义列</span>
-                    <button class="modal-close" onclick="closeCustomColModal()">×</button>
-                </div>
-                <div class="custom-col-body">
-                    <!-- 左栏: 字段列表 -->
-                    <div class="col-left-panel">
-                        <div class="col-panel-header">
-                            <label class="col-select-all-wrap">
-                                <input type="checkbox" id="col-select-all" onchange="colSelectAll(this.checked)">
-                                <span>字段列表 (<span id="col-checked-count">0</span>/<span
-                                        id="col-total-count">0</span>)</span>
-                            </label>
-                        </div>
-                        <div class="col-search-wrap">
-                            <input type="text" id="col-search" class="col-search-input" placeholder="搜索(输入关键字过滤)"
-                                oninput="filterColList()">
-                        </div>
-                        <div class="col-field-list" id="col-field-list">
-                            <!-- 动态渲染 -->
-                        </div>
+            <!-- 主内容区 Main Layout -->
+            <div class="main-layout">
+                <main class="content-area">
+                    <!-- === 二级业务 Tab Nav (无框下划线风格) === -->
+                    <div class="tab-nav">
+                        <button class="tab-btn" id="tab-mine" onclick="switchTab('mine')">我申请的(<span id="cnt-mine">95</span>)</button>
+                        <button class="tab-btn active" id="tab-pending" onclick="switchTab('pending')">待我处理(<span id="cnt-pending">70</span>)</button>
+                        <button class="tab-btn" id="tab-done" onclick="switchTab('done')">已审批(<span id="cnt-done">99+</span>)</button>
+                        <button class="tab-btn" id="tab-cc" onclick="switchTab('cc')">抄送我的(<span id="cnt-cc">4</span>)</button>
                     </div>
-                    <!-- 右栏: 显示字段 -->
-                    <div class="col-right-panel">
-                        <div class="col-panel-header">
-                            <span>显示字段 (<span id="col-selected-count">0</span>)</span>
-                            <button class="clear-btn" onclick="clearSelectedCols()">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#ff4d4f">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                                清空
-                            </button>
-                        </div>
-                        <div class="col-selected-list" id="col-selected-list">
-                            <!-- 动态渲染 -->
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-default" onclick="closeCustomColModal()">取 消</button>
-                    <button class="btn-primary" onclick="applyCustomCols()">确 定</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- ====================================================
-     MODAL: 批量审批
-     ===================================================== -->
-        <div class="modal-overlay" id="batch-modal" style="display:none">
-            <div class="modal-box batch-modal-box">
-                <div class="modal-header">
-                    <span class="modal-title">批量审批</span>
-                    <button class="modal-close" onclick="closeBatchModal()">×</button>
-                </div>
-                <div class="modal-body" style="overflow:hidden;display:flex;flex-direction:column">
-                    <div class="modal-filter"
-                        style="padding:12px 20px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--border)">
-                        <div class="filter-group">
-                            <label style="font-size: 13px;">表单类型：</label>
-                            <select class="filter-select" id="batch-filter-form-type" style="width:160px"
-                                onchange="onBatchFormTypeChange(this.value)">
+                    <!-- === 筛选工具栏: 待我处理 (100% 杜绝冒号铁律) === -->
+                    <div class="filter-bar" id="filter-bar-pending">
+                        <!-- 按表单查看入口 -->
+                        <div class="filter-group form-mode-entry">
+                            <label>按表单查看</label>
+                            <select class="filter-select form-type-select" id="filter-form-type" onchange="onFormTypeChange(this.value)">
                                 <option value="">-- 全部表单 --</option>
                                 <option value="岗位交接班记录zz">岗位交接班记录zz</option>
                                 <option value="病理科人员能力评估表-医师系列">病理科人员能力评估</option>
@@ -427,166 +148,399 @@
                                 <option value="文件修订申请表">文件修订申请表</option>
                             </select>
                         </div>
-                        <div id="batch-dynamic-filters-container" style="display:contents"></div>
 
+                        <!-- 审批状态 -->
                         <div class="filter-group">
-                            <label style="font-size: 13px;">标题：</label>
-                            <input type="text" placeholder="根据标题查询" class="filter-input" style="width:160px"
-                                id="batch-search">
-                        </div>
-
-                        <div style="margin-left:auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
-                            <button class="btn-primary btn-sm" onclick="batchSearch()">查询</button>
-                            <button class="btn-default btn-sm" onclick="resetBatchSearch()">重置</button>
-                            <div class="topbar-divider" style="background:#ddd; height:20px; margin:0 5px;"></div>
-
-                            <button class="btn-default btn-sm btn-filter-custom"
-                                onclick="openCustomFilterModal('batch')">
-                                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24" style="margin-right:4px">
-                                    <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
-                                </svg>
-                                自定义筛选条件
-                            </button>
-
-                            <button class="btn-default btn-sm btn-custom-col" onclick="openBatchCustomColModal()">
-                                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24" style="margin-right:4px">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-                                </svg>
-                                自定义列
-                            </button>
-                        </div>
-
-                    </div>
-                    <div style="flex:1;overflow:auto">
-                        <table class="data-table" id="batch-table">
-                            <thead id="batch-table-head">
-                                <!-- 动态渲染 -->
-                            </thead>
-                            <tbody id="batch-table-body"></tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-bar">
-                        <span class="total-info">共 70 条</span>
-                        <div class="page-size-select"><select>
-                                <option>50条/页</option>
-                            </select></div>
-                        <div class="page-nav">
-                            <button class="page-btn">‹</button>
-                            <button class="page-btn active">1</button>
-                            <button class="page-btn">2</button>
-                            <button class="page-btn">›</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-primary" onclick="confirmBatchApprove()">批量审批通过</button>
-                    <button class="btn-default" onclick="closeBatchModal()">取 消</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ====================================================
-     MODAL: 表单详情
-     ===================================================== -->
-        <!-- ====================================================
-     MODAL: 表单详情
-     ===================================================== -->
-        <div class="modal-overlay" id="detail-modal" style="display:none">
-            <div class="modal-box detail-modal-box">
-                <div class="modal-body detail-modal-body">
-                    <!-- right panel -->
-                    <div class="detail-panel">
-                        <div class="detail-form-header">
-                            <div class="detail-form-title-row">
-                                <span class="detail-form-name" id="detail-form-name">员工培训及能力评估表2-岗位技能类</span>
-                                <span class="status-badge badge-progressing" id="detail-status">进行中</span>
-                            </div>
-                            <div class="detail-meta">发起人：<span id="detail-initiator">李何02</span>&nbsp;&nbsp;操作时间：<span
-                                    id="detail-time">2026-09-30 15:51:12</span></div>
-                            <button type="button" class="acd-text-button acd-main-close" onclick="closeDetailModal()" aria-label="关闭表单" title="关闭">×</button>
-                        </div>
-                        <div class="acd-workspace">
-                        <div class="acd-content">
-                        <div class="detail-tabs">
-                            <button class="detail-tab-btn active"
-                                onclick="switchDetailTab('content', this)">表单内容</button>
-                            <button class="detail-tab-btn" onclick="switchDetailTab('log', this)">操作日志</button>
-                        </div>
-                        <!-- 表单内容 -->
-                        <div class="detail-tab-pane active" id="pane-content">
-                            <div id="form-content-container"></div>
-                        </div>
-                        <!-- 操作日志 -->
-                        <div class="detail-tab-pane" id="pane-log">
-                            <div class="acd-table-scroll">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>操作人</th>
-                                        <th>操作时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="detail-log-tbody">
-                                    <!-- 动态渲染操作日志 -->
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                        </div>
-                        <aside id="approval-progress-panel" aria-label="审批进度"></aside>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" id="detail-footer">
-                    <!-- 动态生成操作按钮 -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ====================================================
-     MODAL: 审批退回 (参考 media_1791614424312_b878adc4.png)
-     ===================================================== -->
-        <div class="modal-overlay" id="return-modal" style="display:none; z-index:2005">
-            <div class="modal-box return-modal-box">
-                <div class="modal-header">
-                    <span class="modal-title">审批退回</span>
-                    <button class="modal-close" onclick="closeReturnModal()">×</button>
-                </div>
-                <div class="modal-body return-modal-body">
-                    <div class="return-form-item">
-                        <label class="return-form-label">退回至节点</label>
-                        <div class="return-form-field">
-                            <select class="filter-select return-select" id="return-node-select">
-                                <option value="发起人">发起人</option>
+                            <label>审批状态</label>
+                            <select class="filter-select" id="filter-status">
+                                <option value="进行中">进行中</option>
+                                <option value="待处理">待处理</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="return-form-item">
-                        <label class="return-form-label">审批意见</label>
-                        <div class="return-form-field">
-                            <textarea class="return-textarea" id="return-comment" placeholder="请输入审批意见"></textarea>
+
+                        <!-- 表单标签 -->
+                        <div class="filter-group">
+                            <label>表单标签</label>
+                            <select class="filter-select" id="filter-tag">
+                                <option value="">请选择</option>
+                                <option>cnas人员档案</option>
+                                <option>cnas演示表单</option>
+                                <option>文件修订</option>
+                            </select>
+                        </div>
+
+                        <!-- 标题 -->
+                        <div class="filter-group">
+                            <label>标题</label>
+                            <input type="text" placeholder="请选择标题" class="filter-input" id="search-input">
+                        </div>
+
+                        <!-- 发起时间 -->
+                        <div class="filter-group">
+                            <label>发起时间</label>
+                            <input type="date" class="filter-input" id="filter-start" placeholder="起始日期">
+                            <span style="margin:0 2px;color:#909399">-</span>
+                            <input type="date" class="filter-input" id="filter-end" placeholder="截止日期">
+                        </div>
+
+                        <!-- 动态生成的筛选条件容器 -->
+                        <div id="dynamic-filters-container" style="display:contents"></div>
+
+                        <!-- 操作按钮组 (对齐系统标准) -->
+                        <div class="filter-actions-right">
+                            <button class="btn-primary" onclick="doSearch()">查询</button>
+                            <button class="btn-default" onclick="resetSearch()">重置</button>
+                            <button class="btn-primary" onclick="openBatchModal()">批量审批</button>
+                            <button class="btn-primary" id="btn-custom-col" onclick="openCustomColModal()">列表自定义列</button>
+                            <button class="btn-primary" onclick="openCustomFilterModal()">筛选条件</button>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-default" onclick="closeReturnModal()">关闭esc</button>
-                    <button class="btn-primary" onclick="confirmReturn()">确定退回</button>
+
+                    <!-- === 筛选工具栏: 我申请的 === -->
+                    <div class="filter-bar hidden" id="filter-bar-mine">
+                        <div class="filter-group">
+                            <label>审批状态</label>
+                            <select class="filter-select">
+                                <option value="">全部</option>
+                                <option>进行中</option>
+                                <option>已通过</option>
+                                <option>已驳回</option>
+                                <option>已撤回</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>表单类型</label>
+                            <select class="filter-select">
+                                <option value="">全部表单</option>
+                                <option>岗位交接班记录</option>
+                                <option>人员能力评估</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>标题</label>
+                            <input type="text" class="filter-input" placeholder="请输入标题" style="width:160px">
+                        </div>
+                        <div class="filter-group">
+                            <label>发起时间</label>
+                            <input type="date" class="filter-input"> <span style="margin:0 2px;color:#909399">-</span> <input type="date" class="filter-input">
+                        </div>
+                        <div class="filter-actions-right">
+                            <button class="btn-primary" onclick="doSearch()">查询</button>
+                            <button class="btn-default" onclick="resetSearch()">重置</button>
+                            <button class="btn-primary" onclick="openCustomFilterModal()">筛选条件</button>
+                        </div>
+                    </div>
+
+                    <!-- === 筛选工具栏: 已审批记录 === -->
+                    <div class="filter-bar hidden" id="filter-bar-done">
+                        <div class="filter-group">
+                            <label>处理结果</label>
+                            <select class="filter-select">
+                                <option value="">全部</option>
+                                <option>我通过的</option>
+                                <option>我拒绝的</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>表单类型</label>
+                            <select class="filter-select">
+                                <option value="">全部表单</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>关键字</label>
+                            <input type="text" class="filter-input" placeholder="标题/流水号" style="width:160px">
+                        </div>
+                        <div class="filter-group">
+                            <label>完成时间</label>
+                            <input type="date" class="filter-input"> <span style="margin:0 2px;color:#909399">-</span> <input type="date" class="filter-input">
+                        </div>
+                        <div class="filter-actions-right">
+                            <button class="btn-primary" onclick="doSearch()">查询</button>
+                            <button class="btn-default" onclick="resetSearch()">重置</button>
+                            <button class="btn-primary" onclick="openCustomFilterModal()">筛选条件</button>
+                        </div>
+                    </div>
+
+                    <!-- === 筛选工具栏: 抄送我的 === -->
+                    <div class="filter-bar hidden" id="filter-bar-cc">
+                        <div class="filter-group">
+                            <label>阅读状态</label>
+                            <select class="filter-select">
+                                <option value="">全部</option>
+                                <option>未读</option>
+                                <option>已读</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>发起人</label>
+                            <input type="text" class="filter-input" placeholder="搜索发起人" style="width:120px">
+                        </div>
+                        <div class="filter-group">
+                            <label>表单类型</label>
+                            <select class="filter-select">
+                                <option value="">全部表单</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>抄送时间</label>
+                            <input type="date" class="filter-input"> <span style="margin:0 2px;color:#909399">-</span> <input type="date" class="filter-input">
+                        </div>
+                        <div class="filter-actions-right">
+                            <button class="btn-primary" onclick="doSearch()">查询</button>
+                            <button class="btn-primary" onclick="openCustomFilterModal()">筛选条件</button>
+                        </div>
+                    </div>
+
+                    <!-- === 数据表格区域 === -->
+                    <div class="table-wrap">
+                        <table class="data-table" id="main-table">
+                            <thead id="table-head"></thead>
+                            <tbody id="table-body"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- === 分页栏 (Element-UI 紧凑级规范) === -->
+                    <div class="pagination-bar">
+                        <span class="total-info">共 <span id="total-count">70</span> 条</span>
+                        <div class="page-size-select">
+                            <select onchange="changePageSize(this.value)">
+                                <option value="50">50条/页</option>
+                                <option value="20">20条/页</option>
+                                <option value="100">100条/页</option>
+                            </select>
+                        </div>
+                        <div class="page-nav">
+                            <button class="page-btn" onclick="changePage(-1)">‹</button>
+                            <button class="page-btn active" id="page-1">1</button>
+                            <button class="page-btn" id="page-2" onclick="gotoPage(2)">2</button>
+                            <button class="page-btn" id="page-3" style="display:none" onclick="gotoPage(3)">3</button>
+                            <button class="page-btn" onclick="changePage(1)">›</button>
+                        </div>
+                        <span class="goto-page">前往 <input type="number" value="1" min="1" id="goto-input"
+                                style="width:44px;text-align:center;border:1px solid #d9d9d9;border-radius:3px;padding:2px 4px;">
+                            页</span>
+                    </div>
+                </main>
+            </div>
+
+            <!-- ====================================================
+                 MODAL: 自定义筛选条件
+                 ==================================================== -->
+            <div class="modal-overlay" id="custom-filter-modal" style="display:none">
+                <div class="modal-box" style="width: 800px; max-height: 85vh;">
+                    <div class="modal-header">
+                        <span class="modal-title">筛选符合下面条件的记录</span>
+                        <button class="modal-close" onclick="closeCustomFilterModal()">×</button>
+                    </div>
+                    <div class="modal-body" style="overflow-y:auto">
+                        <div class="filter-tags-container" id="filter-tags-container"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-primary" onclick="applyCustomFilters()">确 定</button>
+                        <button class="btn-default" style="color:#ff4d4f; border-color:#ff4d4f" onclick="clearFilterTags()">清空条件</button>
+                        <button class="btn-default" onclick="closeCustomFilterModal()">取消esc</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Toast -->
-        <div class="toast-msg" id="toast"></div>
+            <!-- ====================================================
+                 MODAL: 列表自定义列
+                 ==================================================== -->
+            <div class="modal-overlay" id="custom-col-modal" style="display:none">
+                <div class="modal-box custom-col-box">
+                    <div class="modal-header">
+                        <span class="modal-title">列表自定义列</span>
+                        <button class="modal-close" onclick="closeCustomColModal()">×</button>
+                    </div>
+                    <div class="custom-col-body">
+                        <!-- 左栏: 字段列表 -->
+                        <div class="col-left-panel">
+                            <div class="col-panel-header">
+                                <label class="col-select-all-wrap">
+                                    <input type="checkbox" id="col-select-all" onchange="colSelectAll(this.checked)">
+                                    <span>字段列表 (<span id="col-checked-count">0</span>/<span id="col-total-count">0</span>)</span>
+                                </label>
+                            </div>
+                            <div class="col-search-wrap">
+                                <input type="text" id="col-search" class="col-search-input" placeholder="搜索(输入关键字过滤)" oninput="filterColList()">
+                            </div>
+                            <div class="col-field-list" id="col-field-list"></div>
+                        </div>
+                        <!-- 右栏: 显示字段 -->
+                        <div class="col-right-panel">
+                            <div class="col-panel-header">
+                                <span>显示字段 (<span id="col-selected-count">0</span>)</span>
+                                <button class="clear-btn" onclick="clearSelectedCols()">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#ff4d4f">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                    清空
+                                </button>
+                            </div>
+                            <div class="col-selected-list" id="col-selected-list"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-primary" onclick="applyCustomCols()">确 定</button>
+                        <button class="btn-default" onclick="closeCustomColModal()">取消esc</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====================================================
+                 MODAL: 批量审批
+                 ==================================================== -->
+            <div class="modal-overlay" id="batch-modal" style="display:none">
+                <div class="modal-box batch-modal-box">
+                    <div class="modal-header">
+                        <span class="modal-title">批量审批</span>
+                        <button class="modal-close" onclick="closeBatchModal()">×</button>
+                    </div>
+                    <div class="modal-body" style="overflow:hidden;display:flex;flex-direction:column">
+                        <div class="modal-filter" style="padding:12px 20px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--border)">
+                            <div class="filter-group">
+                                <label style="font-size: 13px;">表单类型</label>
+                                <select class="filter-select" id="batch-filter-form-type" style="width:160px" onchange="onBatchFormTypeChange(this.value)">
+                                    <option value="">-- 全部表单 --</option>
+                                    <option value="岗位交接班记录zz">岗位交接班记录zz</option>
+                                    <option value="病理科人员能力评估表-医师系列">病理科人员能力评估</option>
+                                    <option value="供应商评价表">供应商评价表</option>
+                                    <option value="文件修订申请表">文件修订申请表</option>
+                                </select>
+                            </div>
+                            <div id="batch-dynamic-filters-container" style="display:contents"></div>
+
+                            <div class="filter-group">
+                                <label style="font-size: 13px;">标题</label>
+                                <input type="text" placeholder="根据标题查询" class="filter-input" style="width:160px" id="batch-search">
+                            </div>
+
+                            <div style="margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+                                <button class="btn-primary btn-sm" onclick="batchSearch()">查询</button>
+                                <button class="btn-default btn-sm" onclick="resetBatchSearch()">重置</button>
+                                <div class="topbar-divider" style="background:#ddd; height:18px; margin:0 4px;"></div>
+                                <button class="btn-primary btn-sm" onclick="openCustomFilterModal('batch')">筛选条件</button>
+                                <button class="btn-primary btn-sm" onclick="openBatchCustomColModal()">列表自定义列</button>
+                            </div>
+                        </div>
+                        <div style="flex:1;overflow:auto">
+                            <table class="data-table" id="batch-table">
+                                <thead id="batch-table-head"></thead>
+                                <tbody id="batch-table-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-bar">
+                            <span class="total-info">共 70 条</span>
+                            <div class="page-size-select">
+                                <select><option>50条/页</option></select>
+                            </div>
+                            <div class="page-nav">
+                                <button class="page-btn">‹</button>
+                                <button class="page-btn active">1</button>
+                                <button class="page-btn">2</button>
+                                <button class="page-btn">›</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-primary" onclick="confirmBatchApprove()">批量审批通过</button>
+                        <button class="btn-default" onclick="closeBatchModal()">关闭esc</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====================================================
+                 MODAL: 表单详情 (保护侧框结构 100% 不受影响)
+                 ==================================================== -->
+            <div class="modal-overlay" id="detail-modal" style="display:none">
+                <div class="modal-box detail-modal-box">
+                    <div class="modal-body detail-modal-body">
+                        <!-- right panel -->
+                        <div class="detail-panel">
+                            <div class="detail-form-header">
+                                <div class="detail-form-title-row">
+                                    <span class="detail-form-name" id="detail-form-name">员工培训及能力评估表2-岗位技能类</span>
+                                    <span class="status-badge badge-progressing" id="detail-status">进行中</span>
+                                </div>
+                                <div class="detail-meta">发起人：<span id="detail-initiator">李何02</span>&nbsp;&nbsp;操作时间：<span id="detail-time">2026-09-30 15:51:12</span></div>
+                                <button type="button" class="acd-text-button acd-main-close" onclick="closeDetailModal()" aria-label="关闭表单" title="关闭">×</button>
+                            </div>
+                            <div class="acd-workspace">
+                                <div class="acd-content">
+                                    <div class="detail-tabs">
+                                        <button class="detail-tab-btn active" onclick="switchDetailTab('content', this)">表单内容</button>
+                                        <button class="detail-tab-btn" onclick="switchDetailTab('log', this)">操作日志</button>
+                                    </div>
+                                    <!-- 表单内容 -->
+                                    <div class="detail-tab-pane active" id="pane-content">
+                                        <div id="form-content-container"></div>
+                                    </div>
+                                    <!-- 操作日志 -->
+                                    <div class="detail-tab-pane" id="pane-log">
+                                        <div class="acd-table-scroll">
+                                            <table class="data-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>操作人</th>
+                                                        <th>操作时间</th>
+                                                        <th>操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="detail-log-tbody"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <aside id="approval-progress-panel" aria-label="审批进度"></aside>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="detail-footer"></div>
+                </div>
+            </div>
+
+            <!-- ====================================================
+                 MODAL: 审批退回
+                 ==================================================== -->
+            <div class="modal-overlay" id="return-modal" style="display:none; z-index:2005">
+                <div class="modal-box return-modal-box">
+                    <div class="modal-header">
+                        <span class="modal-title">审批退回</span>
+                        <button class="modal-close" onclick="closeReturnModal()">×</button>
+                    </div>
+                    <div class="modal-body return-modal-body">
+                        <div class="return-form-item">
+                            <label class="return-form-label">退回至节点</label>
+                            <div class="return-form-field">
+                                <select class="filter-select return-select" id="return-node-select">
+                                    <option value="发起人">发起人</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="return-form-item">
+                            <label class="return-form-label">审批意见</label>
+                            <div class="return-form-field">
+                                <textarea class="return-textarea" id="return-comment" placeholder="请输入审批意见"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-primary" onclick="confirmReturn()">确定退回</button>
+                        <button class="btn-default" onclick="closeReturnModal()">关闭esc</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast -->
+            <div class="toast-msg" id="toast"></div>
+        </div>
     </div>
 
-    <script src="script.js?v=20261118-4"></script>
-        <script src="personnel-record-reference.js"></script>
-        <script src="related-form-editor.js?v=20261118-4"></script>
-        <script src="detail-drawers.js?v=20261118-7"></script>
+    <script src="script.js?v=20261118-8"></script>
+    <script src="personnel-record-reference.js"></script>
+    <script src="related-form-editor.js?v=20261118-4"></script>
+        <script src="detail-drawers.js?v=20261118-8"></script>
 </body>
-
 </html>
