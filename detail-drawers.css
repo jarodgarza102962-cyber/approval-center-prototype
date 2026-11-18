@@ -241,7 +241,17 @@
 #table-body .op-btn.acd-row-danger { color: #f56c6c; border-color: #f56c6c; }
 #table-body .badge-withdrawn { color: #909399; border-color: #dcdfe6; background: #f4f4f5; }
 #table-body tr[aria-selected="true"] > td { background: #ecf5ff; }
-#approval-record-drawer[data-kind="launch"] { top: var(--ace-workspace-top, 40px); left: var(--ace-workspace-left, 0px); justify-content: stretch; align-items: stretch; background: transparent; }
+#approval-system-nav { position: fixed; inset: 0 auto 0 0; z-index: 2150; width: 54px; display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto; background: #304156; color: #fff; }
+#approval-system-nav[hidden] { display: none; }
+#approval-system-nav .acd-system-brand { display: flex; align-items: center; justify-content: center; flex: 0 0 40px; font-size: 14px; font-weight: 600; background: #203144; }
+#approval-system-nav button { display: flex; align-items: center; justify-content: center; flex: 0 0 54px; width: 54px; padding: 5px 2px; border: 0; border-radius: 0; background: transparent; color: #fff; font: inherit; font-size: 14px; line-height: 19px; cursor: pointer; }
+#approval-system-nav button:hover { background: #26394d; }
+#approval-system-nav button[aria-current="page"] { background: #409eff; }
+#approval-system-nav button:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
+.app-shell.acd-launch-workspace { padding-left: 54px; }
+.app-shell.acd-launch-workspace .topbar-left { min-width: 0; }
+.app-shell.acd-launch-workspace .app-name { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#approval-record-drawer[data-kind="launch"] { top: var(--ace-workspace-top, 40px); left: var(--ace-workspace-left, 54px); justify-content: stretch; align-items: stretch; background: transparent; }
 #approval-record-drawer[data-kind="launch"] .acd-panel { width: 100%; max-width: none; height: 100%; box-shadow: none; border-radius: 0; animation: none; }
 #approval-record-drawer[data-kind="launch"] .acd-panel-header { position: relative; justify-content: center; flex: 0 0 48px; min-height: 48px; padding: 0 44px; background: #f5f6fa; }
 #approval-record-drawer[data-kind="launch"] h2 { overflow-wrap: anywhere; text-align: center; font-size: 18px; font-weight: 400; }
@@ -292,6 +302,7 @@
 #approval-record-drawer .ace-draft-title { margin: 0 0 20px; font-size: 16px; }
 #approval-record-drawer [data-editor-resume] { margin-right: 16px; }
 @media (max-width: 800px) {
+    .app-shell.acd-launch-workspace .topbar-right { display: none; }
     :is(#approval-record-drawer, #related-form-drawer, #detail-modal) .ace-safety-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
     #approval-record-drawer .ace-body { padding: 20px 14px; }
     #approval-record-drawer .ace-choice-row { gap: 12px 18px; }

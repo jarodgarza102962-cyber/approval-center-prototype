@@ -416,6 +416,28 @@
     overlay.id = 'approval-record-drawer';
     overlay.innerHTML = '<section class="acd-panel" role="dialog" aria-modal="true" aria-labelledby="acd-panel-title"><header class="acd-panel-header"><h2 id="acd-panel-title"></h2><span class="acd-header-status"></span><button type="button" class="acd-panel-close" data-action="close" aria-label="关闭" title="关闭">×</button></header><div class="acd-panel-context"></div><div class="acd-panel-body"></div><footer class="acd-panel-footer"><button type="button" class="acd-outline-close" data-action="close">关闭</button></footer></section>';
     document.body.appendChild(overlay);
+    const systemNav = document.getElementById('approval-system-nav');
+    const appShell = document.querySelector('.app-shell');
+    const appName = document.querySelector('.topbar .app-name');
+    const originalAppName = appName.textContent;
+    function setLaunchWorkspace(enabled) {
+        appShell.classList.toggle('acd-launch-workspace', enabled);
+        systemNav.hidden = !enabled;
+        if (!enabled) {
+            appName.textContent = originalAppName;
+            systemNav.querySelectorAll('[data-system-entry]').forEach(button => {
+                if (button.dataset.systemEntry === '审批') button.setAttribute('aria-current', 'page');
+                else button.removeAttribute('aria-current');
+            });
+        }
+    }
+    systemNav.addEventListener('click', event => {
+        const button = event.target.closest('[data-system-entry]');
+        if (!button) return;
+        systemNav.querySelector('[aria-current]')?.removeAttribute('aria-current');
+        button.setAttribute('aria-current', 'page');
+        appName.textContent = button.dataset.systemEntry === '审批' ? originalAppName : '朗珈病理信息系统 - ' + button.dataset.systemEntry;
+    });
     function syncLaunchBounds() {
         const workspace = document.querySelector('.main-layout');
         const topbar = document.querySelector('.topbar');
@@ -443,6 +465,7 @@
         panelReturnFocus = document.activeElement;
         panelKind = kind;
         activeRecord = record;
+        setLaunchWorkspace(kind === 'launch');
         if (kind === 'launch') { syncLaunchBounds(); launchEditor.open(record, currentDetailItem); }
         descending = false;
         historyTab = 'form';
@@ -451,7 +474,7 @@
         detail.classList.toggle('acd-launch-behind', kind === 'launch');
         overlay.dataset.record = record?.id || '';
         overlay.style.display = 'flex';
-        const modal = !['graph', 'logs'].includes(kind);
+        const modal = !['graph', 'logs', 'launch'].includes(kind);
         panelParent.inert = modal;
         overlay.querySelector('.acd-panel').setAttribute('aria-modal', String(modal));
         renderPanel();
@@ -459,6 +482,7 @@
     }
     function closePanel() {
         overlay.style.display = 'none';
+        setLaunchWorkspace(false);
         detail.classList.remove('acd-launch-behind');
         panelParent.inert = false;
         detail.inert = !!relatedViews.length || linkModal.style.display === 'flex';
@@ -565,7 +589,7 @@
         if (event.key === 'Escape' && !returnOpen && (panelOpen || relatedOpen || linkOpen || detail.style.display === 'flex')) {
             event.preventDefault(); event.stopImmediatePropagation();
             if (panelOpen) closePanel(); else if (relatedOpen) closeRelated(); else if (linkOpen) closeLinkModal(); else closeDetailModal();
-        } else if (event.key === 'Tab' && !(panelOpen && ['graph', 'logs'].includes(panelKind)) && (panelOpen || relatedOpen || linkOpen)) {
+        } else if (event.key === 'Tab' && !(panelOpen && ['graph', 'logs', 'launch'].includes(panelKind)) && (panelOpen || relatedOpen || linkOpen)) {
             const surface = panelOpen ? overlay : relatedOpen ? relatedDrawer : linkModal;
             const targets = [...surface.querySelectorAll('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]')].filter(el => el.getClientRects().length);
             if (event.shiftKey && document.activeElement === targets[0]) { event.preventDefault(); targets.at(-1).focus(); }
@@ -577,6 +601,7 @@
         isRelatedContent() { return selectedContentRecord !== null; },
         open(item) {
             selectedContentRecord = null;
+            setLaunchWorkspace(false);
             detail.classList.remove('acd-launch-behind');
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
@@ -588,6 +613,7 @@
         },
         close() {
             selectedContentRecord = null;
+            setLaunchWorkspace(false);
             detail.classList.remove('acd-launch-behind');
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
