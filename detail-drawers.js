@@ -18,6 +18,82 @@
     const relatedViews = [];
     let panelParent = detail;
     let historyTab = 'form';
+    let selectedContentRecord = null;
+
+    function contentRecord() { return selectedContentRecord || currentDetailItem; }
+    function selectContentRecord(record) {
+        selectedContentRecord = record.id === currentDetailItem.id ? null : record;
+        toggleContent(false);
+        switchDetailTab('content', detail.querySelector('.detail-tab-btn'));
+        renderDetailModal();
+        document.getElementById('pane-content').scrollTop = 0;
+        document.getElementById('pane-log').scrollTop = 0;
+        detail.querySelector('.detail-tab-btn').focus({ preventScroll: true });
+    }
+    function resizeLimits(surface) {
+        const sidebarWidth = parseFloat(getComputedStyle(surface).getPropertyValue('--acd-sidebar-width')) || 380;
+        return { min: Math.min(window.innerWidth, sidebarWidth + 320), max: window.innerWidth };
+    }
+    function ensureWidthHandle(surface) {
+        const box = surface.querySelector('.detail-modal-box');
+        if (!box.querySelector('.acd-width-handle')) {
+            const handle = document.createElement('div');
+            handle.className = 'acd-width-handle';
+            handle.setAttribute('role', 'separator');
+            handle.setAttribute('aria-orientation', 'vertical');
+            handle.setAttribute('aria-label', '调整表单详情宽度');
+            handle.title = '拖拽调整宽度';
+            handle.tabIndex = 0;
+            box.appendChild(handle);
+        }
+        const handle = box.querySelector('.acd-width-handle');
+        const limits = resizeLimits(surface);
+        handle.setAttribute('aria-valuemin', Math.round(limits.min));
+        handle.setAttribute('aria-valuemax', Math.round(limits.max));
+        handle.setAttribute('aria-valuenow', Math.round(box.getBoundingClientRect().width));
+    }
+    function setDrawerWidth(surface, width) {
+        const limits = resizeLimits(surface);
+        surface.style.setProperty('--acd-drawer-width', Math.max(limits.min, Math.min(limits.max, width)) + 'px');
+        ensureWidthHandle(surface);
+    }
+    function installDrawerResize(surface) {
+        let drag = null;
+        surface.addEventListener('pointerdown', event => {
+            const handle = event.target.closest('.acd-width-handle');
+            if (!handle || event.button !== 0 || surface.classList.contains('acd-collapsed')) return;
+            event.preventDefault();
+            drag = { x: event.clientX, width: surface.querySelector('.detail-modal-box').getBoundingClientRect().width, pointerId: event.pointerId };
+            surface.setAttribute('data-resizing', '');
+            handle.setPointerCapture(event.pointerId);
+            handle.focus({ preventScroll: true });
+        });
+        surface.addEventListener('pointermove', event => {
+            if (drag && drag.pointerId === event.pointerId) setDrawerWidth(surface, drag.width + drag.x - event.clientX);
+        });
+        const finish = event => {
+            if (!drag || event.pointerId !== drag.pointerId) return;
+            drag = null;
+            surface.removeAttribute('data-resizing');
+        };
+        surface.addEventListener('pointerup', finish);
+        surface.addEventListener('pointercancel', finish);
+        surface.addEventListener('lostpointercapture', finish);
+        surface.addEventListener('keydown', event => {
+            if (!event.target.matches('.acd-width-handle')) return;
+            const limits = resizeLimits(surface);
+            const width = surface.querySelector('.detail-modal-box').getBoundingClientRect().width;
+            const step = event.shiftKey ? 40 : 16;
+            const next = { ArrowLeft: width + step, ArrowRight: width - step, Home: limits.min, End: limits.max }[event.key];
+            if (next === undefined) return;
+            event.preventDefault();
+            setDrawerWidth(surface, next);
+        });
+        window.addEventListener('resize', () => {
+            if (surface.style.display === 'flex') ensureWidthHandle(surface);
+        });
+    }
+    installDrawerResize(detail);
 
     // Keep this approval example aligned with the personnel qualification record.
     function referenceRecord(id, title, relation, status, startTime, initiator, source, nodes, fields) {
@@ -78,7 +154,7 @@
         return ['已通过', '已完成'].includes(record.status) ? 'done' : record.status === '进行中' ? 'active' : ['未发起', '已撤回'].includes(record.status) ? 'unstarted' : 'rejected';
     }
     function badge(record) { return `<span class="acd-status ${statusClass(record)}">${esc(record.status)}</span>`; }
-    function relationTag(record) { return record.relation === '主表单' ? '' : `<span class="acd-relation-text">${esc(record.relation)}</span>`; }
+    function relationTag(record) { return record.relation === '主表单' ? '<span class="acd-relation-main">主表单</span>' : `<span class="acd-relation-text">${esc(record.relation)}</span>`; }
     const timelineIcons = {
         user: '<circle cx="12" cy="8" r="3"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>',
         check: '<path d="m5 12 4 4L19 6"/>',
@@ -122,6 +198,8 @@
         const scrollTop = sidebar.querySelector('.acd-progress-list')?.scrollTop || 0;
         sidebar.innerHTML = progressHTML(currentDetailItem, expanded, detail.classList.contains('acd-collapsed'));
         sidebar.querySelector('.acd-progress-list').scrollTop = scrollTop;
+        ensureWidthHandle(detail);
+        requestAnimationFrame(() => { if (detail.style.display === 'flex') ensureWidthHandle(detail); });
     }
     function toggleContent(force) {
         const collapsed = typeof force === 'boolean' ? force : !detail.classList.contains('acd-collapsed');
@@ -137,7 +215,7 @@
     function versionSnapshot(record) {
         const snapshot = structuredClone({ id: record.id, title: record.title, status: record.status, startTime: record.startTime,
             initiator: record.initiator, source: record.source, fields: record.fields, formValues: record.formValues,
-            formData: record.formData, flowNodes: record.flowNodes || [], approvalDetails: record.approvalDetails || [] });
+            formData: record.formData, editorValues: record.editorValues, flowNodes: record.flowNodes || [], approvalDetails: record.approvalDetails || [] });
         if (!record.source && record.id === currentDetailItem?.id) {
             const clone = document.getElementById('form-content-container').cloneNode(true);
             clone.querySelectorAll('input, textarea, select').forEach(input => {
@@ -171,6 +249,7 @@
         renderDetailLogs();
     }
     function renderReadonlyForm(container, record) {
+        if (window.renderRelatedEditorValues?.(container, record)) return;
         if (renderPersonnelForm(container, record, true)) return;
         if (record.formHTML) { container.innerHTML = record.formHTML; return; }
         const values = record.fields || [['表单名称', record.title], ['发起人', record.initiator], ['发起时间', record.startTime]];
@@ -180,6 +259,7 @@
     relatedDrawer.id = 'related-form-drawer';
     relatedDrawer.setAttribute('aria-label', '关联表单详情');
     document.body.appendChild(relatedDrawer);
+    installDrawerResize(relatedDrawer);
     function renderRelatedView() {
         const state = relatedViews.at(-1);
         const record = state.record;
@@ -195,6 +275,7 @@
         renderReadonlyForm(relatedDrawer.querySelector('.acd-related-form'), record);
         renderOperationLogs(relatedDrawer.querySelector('tbody'), record);
         relatedDrawer.querySelector('.acd-progress-list').scrollTop = state.scrollTop || 0;
+        ensureWidthHandle(relatedDrawer);
     }
     function openRelated(record) {
         const previous = relatedViews.at(-1);
@@ -248,7 +329,7 @@
     }
     detail.addEventListener('click', event => {
         const button = event.target.closest('[data-history-index]');
-        if (button) openHistory(currentDetailItem, Number(button.dataset.historyIndex));
+        if (button) openHistory(contentRecord(), Number(button.dataset.historyIndex));
     });
     const linkModal = document.createElement('div');
     linkModal.id = 'approval-link-modal';
@@ -335,10 +416,25 @@
     overlay.id = 'approval-record-drawer';
     overlay.innerHTML = '<section class="acd-panel" role="dialog" aria-modal="true" aria-labelledby="acd-panel-title"><header class="acd-panel-header"><h2 id="acd-panel-title"></h2><span class="acd-header-status"></span><button type="button" class="acd-panel-close" data-action="close" aria-label="关闭" title="关闭">×</button></header><div class="acd-panel-context"></div><div class="acd-panel-body"></div><footer class="acd-panel-footer"><button type="button" class="acd-outline-close" data-action="close">关闭</button></footer></section>';
     document.body.appendChild(overlay);
+    const launchEditor = window.createRelatedFormEditor({
+        host: overlay, onClose: closePanel, notify: showToast,
+        onSubmit(record, values) {
+            const now = formatNowTime();
+            Object.assign(record, { status: '进行中', startTime: now, initiator: currentDetailItem.initiator,
+                editorValues: values, fields: [['专业组', values.group], ['日期', values.date.replace('T', ' ')], ['安全情况', values.safety], ['换岗类型', values.handoverType], ['工作交接记录', values.work], ['其他说明', values.other]],
+                flowNodes: [{ key: '发起审批', name: '发起审批', status: 'done', user: currentDetailItem.initiator, time: now }, { key: '接班人审核', name: '接班人审核', status: 'active', user: values.approver, desc: '1人 会签', time: '' }],
+                approvalDetails: [], logs: [{ user: currentDetailItem.initiator, action: '发起审批', time: now }] });
+            expanded = new Set([record.id]);
+            closePanel(); render();
+            sidebar.querySelector(`[data-record="${record.id}"] [data-action="view"]`).focus({ preventScroll: true });
+            showToast('已发起，等待接班人审核');
+        }
+    });
     function openPanel(kind, record) {
         panelReturnFocus = document.activeElement;
         panelKind = kind;
         activeRecord = record;
+        if (kind === 'launch') launchEditor.open(record, currentDetailItem);
         descending = false;
         historyTab = 'form';
         panelParent = relatedViews.length ? relatedDrawer : linkModal.style.display === 'flex' ? linkModal : detail;
@@ -395,6 +491,8 @@
         return true;
     }
     function renderPanel() {
+        if (panelKind === 'launch') { launchEditor.render(); return; }
+        overlay.querySelector('.acd-panel-footer').innerHTML = '<button type="button" class="acd-outline-close" data-action="close">关闭</button>';
         const title = { logs: '审批日志', graph: '审批流程图', history: '操作详情', launch: '发起表单' }[panelKind];
         overlay.querySelector('h2').textContent = panelKind === 'graph' ? activeRecord.title + ' · ' + title : title;
         overlay.querySelector('.acd-header-status').innerHTML = panelKind === 'graph' ? badge(activeRecord) : '';
@@ -411,8 +509,6 @@
             const content = body.querySelector('.acd-history-content');
             if (historyTab === 'form') renderReadonlyForm(content, activeRecord);
             else content.innerHTML = timeline(activeRecord);
-        } else if (panelKind === 'launch') {
-            body.innerHTML = `<form id="acd-launch-form"><label>交班人<input name="from" value="${esc(currentDetailItem.initiator)}" required></label><label>接班人<input name="to" required></label><label>交接日期<input name="date" type="date" required></label><label>交接内容<textarea name="content" required></textarea></label><div class="acd-panel-actions"><button type="button" class="acd-text-button" data-action="close">取消</button><button type="submit" class="acd-submit">提交发起</button></div></form>`;
         }
     }
     sidebar.addEventListener('click', event => {
@@ -430,15 +526,11 @@
             if (!window.confirm('确定要移除该手动关联的表单吗？移除仅解除关联，不删除原表单及审批记录。')) return;
             currentDetailItem.relatedForms = currentDetailItem.relatedForms.filter(r => r.id !== record.id);
             expanded.delete(record.id);
+            if (selectedContentRecord?.id === record.id) selectContentRecord(currentDetailItem);
             render();
             sidebar.querySelector('[data-action="link"]').focus({ preventScroll: true });
             showToast('已移除关联');
-        } else if (action === 'view' && record.id === currentDetailItem.id) {
-            toggleContent(false);
-            const tab = detail.querySelector('.detail-tab-btn');
-            switchDetailTab('content', tab);
-            tab.focus({ preventScroll: true });
-        } else if (action === 'view') openRelated(record);
+        } else if (action === 'view') selectContentRecord(record);
         else openPanel(action, record);
     });
     overlay.addEventListener('click', event => {
@@ -453,18 +545,6 @@
         const list = overlay.querySelector('.acd-log-list');
         list.innerHTML = cardsHTML(activeRecord);
         list.scrollTop = 0;
-    });
-    overlay.addEventListener('submit', event => {
-        event.preventDefault();
-        const values = new FormData(event.target);
-        if (event.target.id === 'acd-launch-form') {
-            const now = formatNowTime();
-            Object.assign(activeRecord, { status: '进行中', startTime: now, initiator: values.get('from'), fields: [['交班人', values.get('from')], ['接班人', values.get('to')], ['交接日期', values.get('date')], ['交接内容', values.get('content')]], flowNodes: [{ name: '发起审批', status: 'done', user: values.get('from'), time: now }, { name: '接班人审核', status: 'active', user: values.get('to'), time: '' }], approvalDetails: [] });
-            expanded = new Set([activeRecord.id]);
-            closePanel(); render();
-            sidebar.querySelector(`[data-record="${activeRecord.id}"] [data-action="view"]`).focus({ preventScroll: true });
-            showToast('已发起，等待接班人审核');
-        }
     });
     document.addEventListener('keydown', event => {
         const panelOpen = overlay.style.display === 'flex';
@@ -482,8 +562,10 @@
         }
     }, true);
     window.approvalDetail = {
-        render, toggleContent, renderPersonnelForm, renderOperationLogs, saveVersion,
+        render, toggleContent, renderPersonnelForm, renderOperationLogs, renderReadonlyForm, saveVersion, contentRecord,
+        isRelatedContent() { return selectedContentRecord !== null; },
         open(item) {
+            selectedContentRecord = null;
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
             returnFocus = document.activeElement;
@@ -493,6 +575,7 @@
             toggleContent(false);
         },
         close() {
+            selectedContentRecord = null;
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
             if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });

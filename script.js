@@ -725,7 +725,7 @@ function switchDetailTab(tab, btn) {
 
 function renderDetailModal() {
     if (!currentDetailItem) return;
-    const item = currentDetailItem;
+    const item = window.approvalDetail?.contentRecord() || currentDetailItem;
 
     // 1. 顶部基础信息
     document.getElementById('detail-form-name').textContent = item.title;
@@ -738,7 +738,7 @@ function renderDetailModal() {
 
     // 2. 表单内容 Tab
     renderDetailFormContent();
-    const canEdit = item.status === '进行中' && (currentTab === 'pending' || (currentTab === 'mine' && item.currentNodeKey === '发起人'));
+    const canEdit = !window.approvalDetail?.isRelatedContent() && item.status === '进行中' && (currentTab === 'pending' || (currentTab === 'mine' && item.currentNodeKey === '发起人'));
     if (!canEdit) document.querySelectorAll('#form-content-container input, #form-content-container textarea, #form-content-container select').forEach(input => { input.disabled = true; });
 
     // 审批进度与关联表单统一展示在右侧。
@@ -770,6 +770,10 @@ function switchDetailItem(id) {
 function renderDetailFormContent() {
     const container = document.getElementById('form-content-container');
     if (!container || !currentDetailItem) return;
+    if (window.approvalDetail?.isRelatedContent()) {
+        window.approvalDetail.renderReadonlyForm(container, window.approvalDetail.contentRecord());
+        return;
+    }
     const item = currentDetailItem;
     if (window.approvalDetail?.renderPersonnelForm(container, item)) return;
     const form = item.formData || {};
@@ -1026,7 +1030,7 @@ function changeFlowSort(sort) {
 function renderDetailLogs() {
     const tbody = document.getElementById('detail-log-tbody');
     if (!tbody || !currentDetailItem) return;
-    if (window.approvalDetail) { window.approvalDetail.renderOperationLogs(tbody, currentDetailItem); return; }
+    if (window.approvalDetail) { window.approvalDetail.renderOperationLogs(tbody, window.approvalDetail.contentRecord()); return; }
     const logs = currentDetailItem.logs || [];
     tbody.innerHTML = logs.map(l => `
         <tr>
@@ -1044,7 +1048,7 @@ function renderDetailFooter() {
     const copy = '<button class="btn-default acd-blue-outline" onclick="showToast(\'已复制新表单\')">复制发起</button>';
     const withdraw = `<button class="btn-default acd-blue-outline" onclick="withdrawRecord('${currentDetailItem.id}')">撤回</button>`;
     const close = '<button class="btn-default" onclick="closeDetailModal()">关闭</button>';
-    if (['done', 'cc'].includes(currentTab) || currentDetailItem.status === '已撤回') {
+    if (window.approvalDetail?.isRelatedContent() || ['done', 'cc'].includes(currentTab) || currentDetailItem.status === '已撤回') {
         footer.innerHTML = close;
     } else if (currentTab === 'mine' && !isInitiatorEditing) {
         footer.innerHTML = withdraw + copy + close;
