@@ -416,6 +416,15 @@
     overlay.id = 'approval-record-drawer';
     overlay.innerHTML = '<section class="acd-panel" role="dialog" aria-modal="true" aria-labelledby="acd-panel-title"><header class="acd-panel-header"><h2 id="acd-panel-title"></h2><span class="acd-header-status"></span><button type="button" class="acd-panel-close" data-action="close" aria-label="关闭" title="关闭">×</button></header><div class="acd-panel-context"></div><div class="acd-panel-body"></div><footer class="acd-panel-footer"><button type="button" class="acd-outline-close" data-action="close">关闭</button></footer></section>';
     document.body.appendChild(overlay);
+    function syncLaunchBounds() {
+        const workspace = document.querySelector('.main-layout');
+        const topbar = document.querySelector('.topbar');
+        overlay.style.setProperty('--ace-workspace-left', Math.max(0, workspace?.getBoundingClientRect().left || 0) + 'px');
+        overlay.style.setProperty('--ace-workspace-top', Math.max(0, topbar?.getBoundingClientRect().bottom || 0) + 'px');
+    }
+    window.addEventListener('resize', () => {
+        if (overlay.style.display === 'flex' && panelKind === 'launch') syncLaunchBounds();
+    });
     const launchEditor = window.createRelatedFormEditor({
         host: overlay, onClose: closePanel, notify: showToast,
         onSubmit(record, values) {
@@ -434,11 +443,12 @@
         panelReturnFocus = document.activeElement;
         panelKind = kind;
         activeRecord = record;
-        if (kind === 'launch') launchEditor.open(record, currentDetailItem);
+        if (kind === 'launch') { syncLaunchBounds(); launchEditor.open(record, currentDetailItem); }
         descending = false;
         historyTab = 'form';
         panelParent = relatedViews.length ? relatedDrawer : linkModal.style.display === 'flex' ? linkModal : detail;
         overlay.dataset.kind = kind;
+        detail.classList.toggle('acd-launch-behind', kind === 'launch');
         overlay.dataset.record = record?.id || '';
         overlay.style.display = 'flex';
         const modal = !['graph', 'logs'].includes(kind);
@@ -449,6 +459,7 @@
     }
     function closePanel() {
         overlay.style.display = 'none';
+        detail.classList.remove('acd-launch-behind');
         panelParent.inert = false;
         detail.inert = !!relatedViews.length || linkModal.style.display === 'flex';
         if (panelReturnFocus?.isConnected) panelReturnFocus.focus({ preventScroll: true });
@@ -566,6 +577,7 @@
         isRelatedContent() { return selectedContentRecord !== null; },
         open(item) {
             selectedContentRecord = null;
+            detail.classList.remove('acd-launch-behind');
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
             returnFocus = document.activeElement;
@@ -576,6 +588,7 @@
         },
         close() {
             selectedContentRecord = null;
+            detail.classList.remove('acd-launch-behind');
             overlay.style.display = 'none'; relatedDrawer.style.display = 'none'; linkModal.style.display = 'none';
             relatedViews.length = 0; relatedDrawer.inert = false; linkModal.inert = false; detail.inert = false;
             if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
